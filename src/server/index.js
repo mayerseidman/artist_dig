@@ -19,7 +19,7 @@ app.get('/api/extractText', function(req, res) {
 	console.log("EXTRACTTTTTTTTTTTTTTTT", imgName)
 
 	var options =  { 
-		apikey: '8f5d685ff588957',
+		apikey: process.env.OCR_API_KEY,
 	    language: 'eng',
 	    imageFormat: 'image/png', // Image Type (PNG or GIF)
 	    isOverlayRequired: true
