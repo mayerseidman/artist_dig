@@ -1,0 +1,18 @@
+.locateArtistsContainer {
+	text-align: center;
+	.linksContainer {
+		.artistLink {
+			color: inherit;
+			width: 20%;
+			display: block;
+			margin: auto;
+			margin-bottom: 5px;
+		}
+	}
+	.artistContainer {
+		margin-bottom: 15px;
+		a {
+			cursor: pointer;
+		}
+	}
+}
