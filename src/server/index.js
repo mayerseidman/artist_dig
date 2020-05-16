@@ -6,6 +6,10 @@ const ocrSpaceApi = require('ocr-space-api');
 app.use(express.static('dist'));
 app.listen(process.env.PORT || 8080, () => console.log(`Listening on port ${process.env.PORT || 8080}!`));
 
+const path = require('path');
+const distPath = path.join(__dirname, '../..', 'dist')
+app.use(express.static(distPath))
+
 app.get("/", (req, res) => {
 	res.sendFile(path.join(distPath, 'index.html'))
 })
