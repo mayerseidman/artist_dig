@@ -31,6 +31,27 @@ export default class App extends Component {
         console.log("EDIT")
     }
 
+    submitPhoto(e) {
+        // event.preventDefault();
+        // const fileInput = this.refs.imageFile;
+        // const formData = new FormData();
+        // formData.append('file', fileInput);
+        // formData.append('name', 'some value user types');
+        const formData = new FormData();
+        formData.append('myImage', this.refs.imageFile.files[0]);
+        // formData.append('name', 'Test Name');
+        // formData.append('desc', 'Test description');
+
+        fetch("/api/uploadFile", {
+            method: 'POST',
+            body: formData
+        }).then((response) => {
+            console.log(response)
+        }).then((value) => {
+            console.log(value)
+        })
+    }
+
     render() {
         var linksDisplay = []
         if (this.state.artists) {
@@ -50,6 +71,9 @@ export default class App extends Component {
                     imgExtension={ ['.jpg', '.gif', '.png', '.gif'] }
                     maxFileSize={ 5242880 }
                 />
+
+                  <input type="file" name="myImage" accept="image/*" ref="imageFile" />
+                  <button type="submit" onClick= {this.submitPhoto.bind(this) }>Upload Photo Doof</button>
                 <button onClick={ this.extractText.bind(this) }>GET TEXT FROM IMAGE</button>
                 <div className="linksContainer">{ linksDisplay }</div>
             </div>
