@@ -32,16 +32,9 @@ export default class App extends Component {
     }
 
     submitPhoto(e) {
-        // event.preventDefault();
-        // const fileInput = this.refs.imageFile;
-        // const formData = new FormData();
-        // formData.append('file', fileInput);
-        // formData.append('name', 'some value user types');
         const formData = new FormData();
         formData.append('myImage', this.refs.imageFile.files[0]);
-        // formData.append('name', 'Test Name');
-        // formData.append('desc', 'Test description');
-
+    
         fetch("/api/uploadFile", {
             method: 'POST',
             body: formData

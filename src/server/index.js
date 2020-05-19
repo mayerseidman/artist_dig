@@ -61,53 +61,72 @@ app.use(express.urlencoded()); // to support URL-encoded bodies
 // 	});
 // })
 
-// var storage = multer.diskStorage({
-//   destination: function (req, file, cb) {
-//     cb(null, 'uploads')
-//   },
-//   filename: function (req, file, cb) {
-//     cb(null, file.fieldname + '-' + Date.now())
-//   }
-// })
-
-// const upload = multer({
-//     storage: storage,
-//     fileFilter: (req, file, cb) => {
-//         if (file.mimetype == "image/png" || file.mimetype == "image/jpg" || file.mimetype == "image/jpeg" || file.mimetype == "image/gif") {
-//             cb(null, true);
-//         } else {
-//             cb(null, false);
-//             return cb(new Error('Allowed only .png, .jpg, .jpeg and .gif'));
-//         }
-//     }
-// });
-
 var multer = require('multer');
-var upload = multer({dest:'uploads/'});
+
+var storage = multer.diskStorage({
+  destination: function (req, file, cb) {
+    cb(null, 'uploads')
+  },
+  filename: function (req, file, cb) {
+    cb(null, file.originalname)
+  }
+})
+
+const upload = multer({
+    storage: storage,
+    fileFilter: (req, file, cb) => {
+        if (file.mimetype == "image/png" || file.mimetype == "image/jpg" || file.mimetype == "image/jpeg" || file.mimetype == "image/gif") {
+            cb(null, true);
+        } else {
+            cb(null, false);
+            return cb(new Error('Allowed only .png, .jpg, .jpeg and .gif'));
+        }
+    }
+});
+var unirest = require('unirest');
+
+//var upload = multer({dest:'uploads/'});
+var morgan = require('morgan');
+
+app.use(morgan('combined'));
+
+const dir = path.join(__dirname, '../..', 'uploads')
+app.use('/uploads', express.static(dir))
 
 
 app.post('/api/uploadFile', upload.single("myImage"), (req, res) => {
-	console.log("show me something", req.file)
-	// var lat = req.body.lat;
-	// var long = req.body.long;
-	// res.send({ lat })
+	console.log("show me file", req.file, req.headers.host)
 	try {
-		res.send(req.file);
-		}catch(err) {
+		uploadImage(req.file).then(function(parsedResult) {
+			res.json(parsedResult);
+		})
+	} catch(err) {
+		console.log(err)
 	    res.send(400);
 	}
 });
 
-// var unirest = require('unirest');
-// var req = unirest('POST', 'https://api.ocr.space/parse/image')
-// 	.headers({
-// 		'apikey': '2fde8e881488957s'
-// 	})
-// 	.field('language', 'eng')
-// 	.field('url', 'http://dl.a9t9.com/ocrbenchmark/eng.png')
-// 	.end(function (res) { 
-// 		if (res.error) throw new Error(res.error);
-// 		// replace all link breaks with one simple break and then split on the line break thereby ensuring each array item is separated on its own
-// 		console.log(JSON.parse(res.raw_body).ParsedResults[0].ParsedText.replace(/(?:\\[rn]|[\r\n]+)+/g, "\n").split("\n")); 
-// 	});
+
+// for PRODUCTION pass REQ into this function and then access file off and hostname off of it...
+function uploadImage(file) {
+	return new Promise(function(resolve, reject) {
+		var req = unirest('POST', 'https://api.ocr.space/parse/image')
+		.headers({
+			'apikey': '2fde8e881488957s'
+		})
+		.field('language', 'eng')
+		//.field('url', 'http://dl.a9t9.com/ocrbenchmark/eng.png')
+		// .field('url', 'http://' + req.hostname + '/' + req.file.path) for PRODUCTION
+		.field('url', 'https://eeaac689.ngrok.io/' + file.path)
+		.end(function (res) { 
+			if (res.error) reject(res.error);
+			// replace all link breaks with one simple break and then split on the line break thereby ensuring each array item is separated on its own
+			console.log(res.raw_body)
+			// var result = JSON.parse(res.raw_body).ParsedResults[0].ParsedText.replace(/(?:\\[rn]|[\r\n]+)+/g, "\n").split("\n");
+			// console.log(result); 
+			// eventually
+			resolve(res.raw_body);
+		});
+	});
+}
 
