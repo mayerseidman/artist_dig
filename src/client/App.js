@@ -43,23 +43,33 @@ export default class App extends Component {
     }
 
     deleteArtist(artist) {
-        console.log(artist)
         var artists = _.clone(this.state.artists);
-        console.log(artists.length)
         var artists = _.reject(artists, function(a) { return a === artist; });
-        console.log(artists.length)
         this.setState({ artists: artists })
-        // _.each(studentList.students, (student) => {
-        //     delete studentsSelectedIDs[student.id];
-        // });
+    }
+
+    saveArtist(oldName, newName) {
+        var artists = _.clone(this.state.artists);
+        var artists = _.reject(artists, function(a) { return a === oldName });
+        artists.push(newName)
+        console.log(artists)
+        var sortedArtists = _.sortBy(artists, function (name) { return name })
+        console.log(sortedArtists)
+        this.setState({ artists: sortedArtists })
     }
 
     render() {
         var linksDisplay = []
+        var sortedArtists = _.sortBy(this.state.artists, function (name) {
+           return name;
+        })
         if (this.state.artists) {
-            this.state.artists.map(function(artist) {
+            sortedArtists.map(function(artist) {
                 if (artist) {
-                    var artistLink = (<ArtistContainer artistName={ artist } key={ Math.random() } deleteArtist={ this.deleteArtist.bind(this, artist) } />)
+                    var artistLink = (
+                        <ArtistContainer artistName={ artist } key={ Math.random() } 
+                            deleteArtist={ this.deleteArtist.bind(this) } saveArtist={ this.saveArtist.bind(this) } />
+                    )
                     linksDisplay.push(artistLink)
                 }
             }.bind(this))    

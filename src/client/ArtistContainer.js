@@ -5,19 +5,24 @@ import ReactImage from './react.png';
 export default class App extends Component {
     constructor(props) {
         super(props);
-        this.state = { loading: false, artistName: null, editArtist: false };
+        this.state = { loading: false, artistName: null, originalName: null, editArtist: false };
     }
 
-    editArtist(artist) {
-        console.log("EDIT", artist)
+    openEditArtist() {
         this.setState({ editArtist: true })
     }
 
-    handleChange({ target: { value } }) {   
+    handleChange({ target: { value } }) {
+        this.setState({ originalArtist: this.state.artistName })
         this.setState(prevState=> ({ artistName: value }));
     }
 
-    saveArtist() {
+    // Really should be doing the saving at top level and then it automatically adjusts everything in here too...
+    saveArtist(e) {
+        console.log(this.refs.artistName.value)
+        var newName = this.refs.artistName.value;
+        var oldName = this.state.originalName;
+        this.props.saveArtist(oldName, newName)
         this.setState({ editArtist: false })
     }
 
@@ -29,27 +34,27 @@ export default class App extends Component {
         var artist = this.state.artistName;
         return (
             <div>
-                <input type="text" className="form-control" ref="phone_number" onChange={ this.handleChange.bind(this) } 
+                <input type="text" className="form-control" ref="artistName" onChange={ this.handleChange.bind(this) } 
                     value={ this.state.artistName } />
-                <a onClick={ this.saveArtist.bind(this, artist) }>Save</a>
+                <a onClick={ this.saveArtist.bind(this) }>Save</a>
             </div>
         )
     }
 
     renderArtist() {
-        var artist = this.state.artistName;
+        var artist = this.props.artistName;
         const soundcloudURL = "https://soundcloud.com/search/people?q=" + artist;
         return (
             <div>
                 <a className="artistLink" href={ soundcloudURL } target="_blank">{ artist }</a>
-                <a onClick={ this.editArtist.bind(this, artist) }>Edit</a>
+                <a onClick={ this.openEditArtist.bind(this, artist) }>Edit</a>
                  <a onClick={ this.deleteArtist.bind(this, artist) }>Delete</a>
             </div>
         )
     }
 
     componentDidMount() {
-        this.setState({ artistName: this.props.artistName })
+        this.setState({ originalName: this.props.artistName, artistName: this.props.artistName })
     }
 
     render() {
