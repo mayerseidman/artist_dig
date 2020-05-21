@@ -7,7 +7,7 @@ const bodyParser = require('body-parser');
 const fetch = require('node-fetch');
 require('dotenv').config();
 
-app.use(express.static('dist'));
+// app.use(express.static('dist'));
 app.listen(process.env.PORT || 8080, () => console.log(`Listening on port ${process.env.PORT || 8080}!`));
 
 const path = require('path');
@@ -25,6 +25,10 @@ app.use(bodyParser.urlencoded({     // to support URL-encoded bodies
 
 app.use(express.json());       // to support JSON-encoded bodies
 app.use(express.urlencoded()); // to support URL-encoded bodies 
+
+var unirest = require('unirest');
+var morgan = require('morgan');
+app.use(morgan('combined'));
 
 // app.get('/api/extractText', function(req, res) {
 // 	var imgName = req.query.imgName;
@@ -64,31 +68,25 @@ app.use(express.urlencoded()); // to support URL-encoded bodies
 var multer = require('multer');
 
 var storage = multer.diskStorage({
-  destination: function (req, file, cb) {
-    cb(null, 'uploads')
-  },
-  filename: function (req, file, cb) {
-    cb(null, file.originalname)
-  }
+	destination: function (req, file, cb) {
+		cb(null, 'uploads')
+	},
+	filename: function (req, file, cb) {
+		cb(null, file.originalname)
+	}
 })
 
 const upload = multer({
     storage: storage,
     fileFilter: (req, file, cb) => {
         if (file.mimetype == "image/png" || file.mimetype == "image/jpg" || file.mimetype == "image/jpeg" || file.mimetype == "image/gif") {
-            cb(null, true);
+        	cb(null, true);
         } else {
             cb(null, false);
             return cb(new Error('Allowed only .png, .jpg, .jpeg and .gif'));
         }
     }
 });
-var unirest = require('unirest');
-
-//var upload = multer({dest:'uploads/'});
-var morgan = require('morgan');
-
-app.use(morgan('combined'));
 
 const dir = path.join(__dirname, '../..', 'uploads')
 app.use('/uploads', express.static(dir))
@@ -96,36 +94,36 @@ app.use('/uploads', express.static(dir))
 
 app.post('/api/uploadFile', upload.single("myImage"), (req, res) => {
 	console.log("show me file", req.file, req.headers.host)
+	// const file = req.file;
 	try {
 		uploadImage(req.file).then(function(parsedResult) {
 			res.json(parsedResult);
 		})
 	} catch(err) {
 		console.log(err)
-	    res.send(400);
+		res.send(400);
 	}
 });
 
 
-// for PRODUCTION pass REQ into this function and then access file off and hostname off of it...
+// for PRODUCTION pass REQ into this function and then access file and hostname off of it...
 function uploadImage(file) {
+	console.log(file)
 	return new Promise(function(resolve, reject) {
 		var req = unirest('POST', 'https://api.ocr.space/parse/image')
 		.headers({
 			'apikey': '2fde8e881488957s'
 		})
 		.field('language', 'eng')
-		//.field('url', 'http://dl.a9t9.com/ocrbenchmark/eng.png')
+		// .field('url', 'http://dl.a9t9.com/ocrbenchmark/eng.png')
 		// .field('url', 'http://' + req.hostname + '/' + req.file.path) for PRODUCTION
-		.field('url', ' https://8ae30b35.ngrok.io/' + file.path)
-		.end(function (res) { 
+		.field('url', 'https://f9fe6115.ngrok.io/' + file.path)
+		.end(function (res) {
 			if (res.error) reject(res.error);
 			// replace all link breaks with one simple break and then split on the line break thereby ensuring each array item is separated on its own
 			console.log(JSON.parse(res.raw_body).ParsedResults[0].ParsedText.replace(/[•\t.+]/g, '').replace(/(?:\\[rn]|[\r\n]+)+/g, "\n").split("\n"))
-			// var result = JSON.parse(res.raw_body).ParsedResults[0].ParsedText.replace(/(?:\\[rn]|[\r\n]+)+/g, "\n").split("\n");
-			// console.log(result); 
-			// eventually
-			resolve(res.raw_body);
+			var result = JSON.parse(res.raw_body).ParsedResults[0].ParsedText.replace(/(?:\\[rn]|[\r\n]+)+/g, "\n").split("\n");
+			resolve(result);
 		});
 	});
 }

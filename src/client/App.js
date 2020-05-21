@@ -1,3 +1,4 @@
+const _ = require('underscore')
 import React, { Component } from 'react';
 import '../css/app.css';
 import ReactImage from './react.png';
@@ -27,22 +28,30 @@ export default class App extends Component {
         }.bind(this))
     }
 
-    editArtist() {
-        console.log("EDIT")
-    }
-
     submitPhoto(e) {
         const formData = new FormData();
         formData.append('myImage', this.refs.imageFile.files[0]);
+        formData.append('fileType', "PNG")
     
         fetch("/api/uploadFile", {
             method: 'POST',
             body: formData
-        }).then((response) => {
-            console.log(response)
-        }).then((value) => {
-            console.log(value)
+        }).then(response => response.json())
+        .then((value) => {
+            this.setState({ artists: value })
         })
+    }
+
+    deleteArtist(artist) {
+        console.log(artist)
+        var artists = _.clone(this.state.artists);
+        console.log(artists.length)
+        var artists = _.reject(artists, function(a) { return a === artist; });
+        console.log(artists.length)
+        this.setState({ artists: artists })
+        // _.each(studentList.students, (student) => {
+        //     delete studentsSelectedIDs[student.id];
+        // });
     }
 
     render() {
@@ -50,7 +59,7 @@ export default class App extends Component {
         if (this.state.artists) {
             this.state.artists.map(function(artist) {
                 if (artist) {
-                    var artistLink = (<ArtistContainer artistName={ artist } key={ Math.random() } />)
+                    var artistLink = (<ArtistContainer artistName={ artist } key={ Math.random() } deleteArtist={ this.deleteArtist.bind(this, artist) } />)
                     linksDisplay.push(artistLink)
                 }
             }.bind(this))    

@@ -29,6 +29,7 @@
     "react-dom": "^16.5.2",
     "react-images-upload": "^1.2.8",
     "sass-loader": "^8.0.2",
+    "underscore": "^1.10.2",
     "unirest": "^0.6.0"
   },
   "devDependencies": {

@@ -15,10 +15,14 @@ export default class App extends Component {
 
     handleChange({ target: { value } }) {   
         this.setState(prevState=> ({ artistName: value }));
-    };
+    }
 
     saveArtist() {
         this.setState({ editArtist: false })
+    }
+
+    deleteArtist(artist) {
+        this.props.deleteArtist(artist);
     }
 
     renderEditField() {
@@ -39,6 +43,7 @@ export default class App extends Component {
             <div>
                 <a className="artistLink" href={ soundcloudURL } target="_blank">{ artist }</a>
                 <a onClick={ this.editArtist.bind(this, artist) }>Edit</a>
+                 <a onClick={ this.deleteArtist.bind(this, artist) }>Delete</a>
             </div>
         )
     }
