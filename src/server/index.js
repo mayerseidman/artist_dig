@@ -16,7 +16,6 @@ app.use(express.static(distPath))
 
 app.get("/", (req, res) => {
 	res.sendFile(path.join(distPath, 'index.html'))
-	res.send('Hello World!' + ' Hostname is ' + req.hostname);
 })
 
 app.use(bodyParser.json() );       // to support JSON-encoded bodies
@@ -108,8 +107,8 @@ app.post('/api/uploadFile', upload.single("myImage"), (req, res) => {
 
 
 // for PRODUCTION pass REQ into this function and then access file and hostname off of it...
-function uploadImage(req) {
-	console.log(req)
+function uploadImage(request) {
+	console.log(request.headers)
 	return new Promise(function(resolve, reject) {
 		var req = unirest('POST', 'https://api.ocr.space/parse/image')
 		.headers({
@@ -117,7 +116,7 @@ function uploadImage(req) {
 		})
 		.field('language', 'eng')
 		// .field('url', 'http://dl.a9t9.com/ocrbenchmark/eng.png')
-		.field('url', 'http://' + req.headers.host + '/' + req.file.path)
+		.field('url', 'http://' + request.headers.host + '/' + request.file.path)
 		// .field('url', 'https://d314cf1d.ngrok.io/' + file.path)
 		.end(function (res) {
 			if (res.error) reject(res.error);
