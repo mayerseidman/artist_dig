@@ -110,21 +110,21 @@ app.post('/api/uploadFile', upload.single("myImage"), (req, res) => {
 function uploadImage(request) {
 	console.log(request.headers)
 	return new Promise(function(resolve, reject) {
-		var req = unirest('POST', 'https://api.ocr.space/parse/image')
-		.headers({
-			'apikey': '2fde8e881488957s'
-		})
-		.field('language', 'eng')
-		// .field('url', 'http://dl.a9t9.com/ocrbenchmark/eng.png')
-		.field('url', 'http://' + request.headers.host + '/' + request.file.path)
-		// .field('url', 'https://d314cf1d.ngrok.io/' + file.path)
-		.end(function (res) {
-			if (res.error) reject(res.error);
-			// replace all link breaks with one simple break and then split on the line break thereby ensuring each array item is separated on its own
-			var result = JSON.parse(res.raw_body).ParsedResults[0].ParsedText.replace(/[•\t.+]/g, '').replace(/(?:\\[rn]|[\r\n]+)+/g, "\n").split("\n")
-			// var result = JSON.parse(res.raw_body).ParsedResults[0].ParsedText.replace(/(?:\\[rn]|[\r\n]+)+/g, "\n").split("\n");
-			resolve(result);
-		});
+		unirest.post('https://api.ocr.space/parse/image')
+			.headers({
+				'apikey': '2fde8e881488957s'
+			})
+			.field('language', 'eng')
+			// .field('url', 'http://dl.a9t9.com/ocrbenchmark/eng.png')
+			.field('url', 'http://' + request.headers.host + '/' + request.file.path)
+			// .field('url', 'https://d314cf1d.ngrok.io/' + file.path)
+			.end(function (res) {
+				if (res.error) reject(res.error);
+				// replace all link breaks with one simple break and then split on the line break thereby ensuring each array item is separated on its own
+				var result = JSON.parse(res.raw_body).ParsedResults[0].ParsedText.replace(/[•\t.+]/g, '').replace(/(?:\\[rn]|[\r\n]+)+/g, "\n").split("\n")
+				// var result = JSON.parse(res.raw_body).ParsedResults[0].ParsedText.replace(/(?:\\[rn]|[\r\n]+)+/g, "\n").split("\n");
+				resolve(result);
+			});
 	});
 }
 
