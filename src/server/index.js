@@ -108,6 +108,7 @@ app.post('/api/uploadFile', upload.single("myImage"), (req, res) => {
 
 // for PRODUCTION pass REQ into this function and then access file and hostname off of it...
 function uploadImage(req) {
+	console.log(req)
 	return new Promise(function(resolve, reject) {
 		var req = unirest('POST', 'https://api.ocr.space/parse/image')
 		.headers({
