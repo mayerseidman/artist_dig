@@ -16,6 +16,7 @@ app.use(express.static(distPath))
 
 app.get("/", (req, res) => {
 	res.sendFile(path.join(distPath, 'index.html'))
+	res.send('Hello World!' + ' Hostname is ' + req.hostname);
 })
 
 app.use(bodyParser.json() );       // to support JSON-encoded bodies
