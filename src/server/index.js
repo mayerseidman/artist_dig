@@ -115,7 +115,7 @@ function uploadImage(req) {
 		})
 		.field('language', 'eng')
 		// .field('url', 'http://dl.a9t9.com/ocrbenchmark/eng.png')
-		.field('url', 'http://' + req.hostname + '/' + req.file.path)
+		.field('url', 'http://' + req.headers.host + '/' + req.file.path)
 		// .field('url', 'https://d314cf1d.ngrok.io/' + file.path)
 		.end(function (res) {
 			if (res.error) reject(res.error);
