@@ -96,7 +96,7 @@ app.post('/api/uploadFile', upload.single("myImage"), (req, res) => {
 	console.log("show me file", req.file, req.headers.host)
 	// const file = req.file;
 	try {
-		uploadImage(req).then(function(parsedResult) {
+		uploadImage(req.file).then(function(parsedResult) {
 			res.json(parsedResult);
 		})
 	} catch(err) {
@@ -107,8 +107,7 @@ app.post('/api/uploadFile', upload.single("myImage"), (req, res) => {
 
 
 // for PRODUCTION pass REQ into this function and then access file and hostname off of it...
-function uploadImage(request) {
-	console.log(request.headers)
+function uploadImage(file) {
 	return new Promise(function(resolve, reject) {
 		unirest.post('https://api.ocr.space/parse/image')
 			.headers({
@@ -116,10 +115,11 @@ function uploadImage(request) {
 			})
 			.field('language', 'eng')
 			// .field('url', 'http://dl.a9t9.com/ocrbenchmark/eng.png')
-			.field('url', 'http://' + request.headers.host + '/' + request.file.path)
-			// .field('url', 'https://d314cf1d.ngrok.io/' + file.path)
+			// .field('url', 'http://' + req.headers.host + '/' + req.file.path)
+			.field('url', 'https://115659bfc1b4.ngrok.io/' + file.path)
 			.end(function (res) {
 				if (res.error) reject(res.error);
+				console.log(JSON.parse(res.raw_body)) // files wont work above 1mb!!
 				// replace all link breaks with one simple break and then split on the line break thereby ensuring each array item is separated on its own
 				var result = JSON.parse(res.raw_body).ParsedResults[0].ParsedText.replace(/[•\t.+]/g, '').replace(/(?:\\[rn]|[\r\n]+)+/g, "\n").split("\n")
 				// var result = JSON.parse(res.raw_body).ParsedResults[0].ParsedText.replace(/(?:\\[rn]|[\r\n]+)+/g, "\n").split("\n");
@@ -128,3 +128,13 @@ function uploadImage(request) {
 	});
 }
 
+// const asyncFun = () => {
+// 	return new Promise(resolve => {
+// 		setTimeout(() => resolve("Promise value RETURNED BISCH") 3000)	
+// 	})
+// }
+
+// (async function() {
+//   const data = await asyncFun()
+//   console.log(data)
+// }())
