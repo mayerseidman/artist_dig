@@ -1,18 +1,27 @@
 .locateArtistsContainer {
 	text-align: center;
 	.linksContainer {
+		width: 30%;
+		margin: auto;
+		margin-top: 30px;
 		.artistLink {
 			color: inherit;
-			width: 20%;
-			display: block;
+			display: inline-block;
 			margin: auto;
-			margin-bottom: 5px;
+			margin-bottom: 15px;
 		}
 	}
 	.artistContainer {
+		text-align: left;
 		margin-bottom: 15px;
 		a {
 			cursor: pointer;
 		}
 	}
+}
+
+img {
+  display: inline-block;
+  vertical-align: top; /* remove extra pixels under inline element */
+  width: 50%;
 }

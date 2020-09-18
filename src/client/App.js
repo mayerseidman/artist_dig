@@ -19,14 +19,14 @@ export default class App extends Component {
         });
     }
 
-    extractText() {
-        fetch('api/extractText?imgName=' + this.state.imgName)
-        .then(res => res.json())
-        .then(function(text) {
-        console.log(text.results)
-            this.setState({ artists: text.results})
-        }.bind(this))
-    }
+    // extractText() {
+    //     fetch('api/extractText?imgName=' + this.state.imgName)
+    //     .then(res => res.json())
+    //     .then(function(text) {
+    //     console.log(text.results)
+    //         this.setState({ artists: text.results})
+    //     }.bind(this))
+    // }
 
     submitPhoto(e) {
         const formData = new FormData();
@@ -60,10 +60,10 @@ export default class App extends Component {
 
     render() {
         var linksDisplay = []
-        var sortedArtists = _.sortBy(this.state.artists, function (name) {
-           return name;
-        })
         if (this.state.artists) {
+            var sortedArtists = _.sortBy(this.state.artists, function (artist) {
+               return artist;
+            })
             sortedArtists.map(function(artist) {
                 if (artist) {
                     var artistLink = (
@@ -86,7 +86,6 @@ export default class App extends Component {
 
                   <input type="file" name="myImage" accept="image/*" ref="imageFile" />
                   <button type="submit" onClick= {this.submitPhoto.bind(this) }>Upload Photo Doof</button>
-                <button onClick={ this.extractText.bind(this) }>GET TEXT FROM IMAGE</button>
                 <div className="linksContainer">{ linksDisplay }</div>
             </div>
         );

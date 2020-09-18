@@ -27,6 +27,7 @@ export default class App extends Component {
     }
 
     deleteArtist(artist) {
+        console.log("delete")
         this.props.deleteArtist(artist);
     }
 
@@ -44,11 +45,21 @@ export default class App extends Component {
     renderArtist() {
         var artist = this.props.artistName;
         const soundcloudURL = "https://soundcloud.com/search/people?q=" + artist;
+        const spoitfyURL = "https://open.spotify.com/search/people?q=" + artist;
         return (
             <div>
-                <a className="artistLink" href={ soundcloudURL } target="_blank">{ artist }</a>
-                <a onClick={ this.openEditArtist.bind(this, artist) }>Edit</a>
-                 <a onClick={ this.deleteArtist.bind(this, artist) }>Delete</a>
+                <div>
+                    <span>Soundcloud: </span>
+                    <a className="artistLink" href={ soundcloudURL } target="_blank">{ artist }</a>
+                </div>
+                <div>
+                    <span>Spotify: </span>
+                    <a className="artistLink" href={ spoitfyURL } target="_blank">{ artist }</a>
+                </div>
+                <div>
+                    <a onClick={ this.openEditArtist.bind(this, artist) }>Edit</a> 
+                    <a onClick={ this.deleteArtist.bind(this, artist) }>Delete</a>
+                </div>
             </div>
         )
     }

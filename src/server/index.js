@@ -6,6 +6,7 @@ const ocrSpaceApi = require('ocr-space-api');
 const bodyParser = require('body-parser');
 const fetch = require('node-fetch');
 require('dotenv').config();
+const _ = require('underscore')
 
 // app.use(express.static('dist'));
 app.listen(process.env.PORT || 8080, () => console.log(`Listening on port ${process.env.PORT || 8080}!`));
@@ -116,14 +117,19 @@ function uploadImage(file) {
 			.field('language', 'eng')
 			// .field('url', 'http://dl.a9t9.com/ocrbenchmark/eng.png')
 			// .field('url', 'http://' + req.headers.host + '/' + req.file.path)
-			.field('url', 'https://115659bfc1b4.ngrok.io/' + file.path)
+			.field('url', 'https://c5fb7262fc13.ngrok.io/' + file.path)
 			.end(function (res) {
 				if (res.error) reject(res.error);
 				console.log(JSON.parse(res.raw_body)) // files wont work above 1mb!!
 				// replace all link breaks with one simple break and then split on the line break thereby ensuring each array item is separated on its own
-				var result = JSON.parse(res.raw_body).ParsedResults[0].ParsedText.replace(/[•\t.+]/g, '').replace(/(?:\\[rn]|[\r\n]+)+/g, "\n").split("\n")
-				// var result = JSON.parse(res.raw_body).ParsedResults[0].ParsedText.replace(/(?:\\[rn]|[\r\n]+)+/g, "\n").split("\n");
-				resolve(result);
+				// var result = JSON.parse(res.raw_body).ParsedResults[0].ParsedText.replace(/[•\t.+]/g, '').replace(/(?:\\[rn]|[\r\n]+)+/g, "\n").split("\n")
+				var parsedResults = JSON.parse(res.raw_body).ParsedResults[0].ParsedText;
+				// var result = parsedResults.replace(/(?:\\[rn]|[\r\n]+)+/g, "\n").split("\n");
+				// console.log(parsedResults.replace(/[a-z]\)\s+|•\s+|[A-Z]\.\s+|[IVX]+\.\s+/g, "").split("\n"));
+				var result = parsedResults.replace(/[•\t]+/g, "\n").split("\n")
+				console.log(result)
+				var trimmedResult = result.map(r => r.trim());
+				resolve(trimmedResult);
 			});
 	});
 }
