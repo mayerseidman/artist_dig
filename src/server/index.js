@@ -117,7 +117,7 @@ function uploadImage(file) {
 			.field('language', 'eng')
 			// .field('url', 'http://dl.a9t9.com/ocrbenchmark/eng.png')
 			// .field('url', 'http://' + req.headers.host + '/' + req.file.path)
-			.field('url', 'https://c5fb7262fc13.ngrok.io/' + file.path)
+			.field('url', 'https://3d83de946a30.ngrok.io/' + file.path)
 			.end(function (res) {
 				if (res.error) reject(res.error);
 				console.log(JSON.parse(res.raw_body)) // files wont work above 1mb!!

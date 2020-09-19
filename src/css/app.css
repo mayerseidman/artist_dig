@@ -1,4 +1,7 @@
 .locateArtistsContainer {
+	background: linear-gradient(0deg, rgba(34,193,195,1) 0%, rgba(253,247,45,1) 100%);
+	background-repeat: no-repeat;
+	height: 100vh;
 	text-align: center;
 	.linksContainer {
 		width: 30%;
@@ -18,10 +21,60 @@
 			cursor: pointer;
 		}
 	}
+	.buttonsContainer {
+		display: flex;
+		justify-content: center;
+		align-items: center;
+		height: 100vh;
+	}
+	.innerContainer {
+		height: 100px;
+	    background: black;
+	    width: 100%;
+	    opacity: 0.75;
+	    display: flex;
+	    justify-content: center;
+	    align-items: center;
+	    a {
+	    	cursor: pointer;
+    	    color: #fff;
+    	    font-size: 24px;
+    	    padding-bottom: 5px;
+    	    border-bottom: 1.5px solid #fff;
+    		&:hover {
+    			border-bottom: none;
+    			padding-bottom: 7px;
+    	    }
+	    }
+	}
 }
 
 img {
-  display: inline-block;
-  vertical-align: top; /* remove extra pixels under inline element */
-  width: 50%;
+	display: inline-block;
+	vertical-align: top; /* remove extra pixels under inline element */
+	width: 50%;
+}
+
+body {
+	margin: 0;
+}
+
+.loadingBackground {
+	animation-name: color;
+	animation-duration: 2s;
+	animation-iteration-count: infinite;
+}
+
+.resultsBackground {
+	height: auto;
+	padding: 15px;
+}
+
+@keyframes color {
+	0% {
+    	background: radial-gradient(circle, rgba(63,94,251,1) 0%, rgba(252,70,107,1) 100%);
+	}
+	50% {
+    	background: radial-gradient(circle, rgba(238,174,202,1) 0%, rgba(148,187,233,1) 100%);
+	}
 }
