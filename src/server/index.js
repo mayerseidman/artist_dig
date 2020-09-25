@@ -106,6 +106,19 @@ app.post('/api/uploadFile', upload.single("myImage"), (req, res) => {
 	}
 });
 
+function check (artist) {
+	var excludedWords = ["JANUARY", "FEBRUARY", "MARCH", "APRIL", "MAY", "JUNE", "JULY", "AUGUST", "SEPTEMBER", "OCTOBER", "NOVEMBER", "DECEMBER", "@", "TICKET"]
+
+	function contains(target, pattern){
+	    var value = 0;
+	    pattern.forEach(function(word){
+	      value = value + target.includes(word);
+	    });
+	    return (value === 1)
+	}
+	return contains(artist, excludedWords);
+}
+
 
 // for PRODUCTION pass REQ into this function and then access file and hostname off of it...
 function uploadImage(file) {
@@ -117,18 +130,22 @@ function uploadImage(file) {
 			.field('language', 'eng')
 			// .field('url', 'http://dl.a9t9.com/ocrbenchmark/eng.png')
 			// .field('url', 'http://' + req.headers.host + '/' + req.file.path)
-			.field('url', 'https://3d83de946a30.ngrok.io/' + file.path)
+			.field('url', 'https://9a2396e4be10.ngrok.io/' + file.path)
 			.end(function (res) {
 				if (res.error) reject(res.error);
-				console.log(JSON.parse(res.raw_body)) // files wont work above 1mb!!
+				// console.log(JSON.parse(res.raw_body)) // files wont work above 1mb!!
 				// replace all link breaks with one simple break and then split on the line break thereby ensuring each array item is separated on its own
 				// var result = JSON.parse(res.raw_body).ParsedResults[0].ParsedText.replace(/[•\t.+]/g, '').replace(/(?:\\[rn]|[\r\n]+)+/g, "\n").split("\n")
 				var parsedResults = JSON.parse(res.raw_body).ParsedResults[0].ParsedText;
 				// var result = parsedResults.replace(/(?:\\[rn]|[\r\n]+)+/g, "\n").split("\n");
 				// console.log(parsedResults.replace(/[a-z]\)\s+|•\s+|[A-Z]\.\s+|[IVX]+\.\s+/g, "").split("\n"));
 				var result = parsedResults.replace(/[•\t]+/g, "\n").split("\n")
-				console.log(result)
-				var trimmedResult = result.map(r => r.trim());
+				var sortedResult = _.reject(result, function(artist) { 
+					return check(artist)
+					return artist.toUpperCase().includes("DECEMBER") ||  artist.toUpperCase().includes("@") || artist.toUpperCase().includes("TICKET")
+				});
+				console.log(sortedResult)
+				var trimmedResult = sortedResult.map(r => r.trim());
 				resolve(trimmedResult);
 			});
 	});

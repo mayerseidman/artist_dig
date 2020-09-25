@@ -27,7 +27,6 @@ export default class App extends Component {
     }
 
     deleteArtist(artist) {
-        console.log("delete")
         this.props.deleteArtist(artist);
     }
 

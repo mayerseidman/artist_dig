@@ -27,7 +27,7 @@ export default class App extends Component {
     //     }.bind(this))
     // }
 
-    submitPhoto(e) {
+    submitPhoto = (e) => {
         this.setState({ loading: true })
         const formData = new FormData();
         formData.append('myImage', this.inputElement.files[0]);
@@ -42,13 +42,13 @@ export default class App extends Component {
         })
     }
 
-    deleteArtist(artist) {
+    deleteArtist = (artist) => {
         var artists = _.clone(this.state.artists);
         var artists = _.reject(artists, function(a) { return a === artist; });
         this.setState({ artists: artists })
     }
 
-    saveArtist(oldName, newName) {
+    saveArtist = (oldName, newName) => {
         var artists = _.clone(this.state.artists);
         var artists = _.reject(artists, function(a) { return a === oldName });
         artists.push(newName)
@@ -60,7 +60,6 @@ export default class App extends Component {
 
     componentDidMount = () => {
         this.timer = setTimeout(() => {
-        console.log('I do not leak!');
         }, 5000);
     }
     componentWillUnmount = () => {
@@ -72,8 +71,7 @@ export default class App extends Component {
     }
 
     render() {
-        console.log(this.refs)
-        if (!this.state.artists) {
+        if (!this.state.artists && !this.state.loading) {
             var startContainer = (
                 <div className="buttonsContainer">
                     <div className="innerContainer">
@@ -88,9 +86,6 @@ export default class App extends Component {
         }
         if (this.state.loading) {
             var className = "loadingBackground";
-            var loadingDisplay = (
-                <p>LOADING...</p>
-            )
         } else {
             var artistsDisplay = []
             if (this.state.artists) {
@@ -112,7 +107,6 @@ export default class App extends Component {
         return (
             <div className={ "locateArtistsContainer  " + className }>
                 { startContainer }
-                { loadingDisplay }
                 <div className="linksContainer">
                     { artistsDisplay }
                 </div>
