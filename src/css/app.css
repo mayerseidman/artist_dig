@@ -4,14 +4,24 @@
 	height: 100vh;
 	text-align: center;
 	.linksContainer {
-		width: 30%;
+		width: 75%;
 		margin: auto;
 		/*margin-top: 30px;*/
+		@media screen and (max-width: 550px) {
+			width: 100%;
+		}
 		.artistLink {
 			color: inherit;
-			display: inline-block;
-			margin: auto;
-			margin-bottom: 15px;
+		}
+		.soundcloud {
+			img {
+				width: 60px;
+			}
+			@media screen and (max-width: 550px) {
+				img {
+					width: 40px;
+				}
+			}
 		}
 	}
 	.artistContainer {
@@ -52,7 +62,10 @@
 img {
 	display: inline-block;
 	vertical-align: top; /* remove extra pixels under inline element */
-	width: 50%;
+	width: 40px;
+	@media screen and (max-width: 550px) {
+		width: 25px;
+	}
 }
 
 body {
@@ -77,4 +90,51 @@ body {
 	50% {
     	background: radial-gradient(circle, rgba(238,174,202,1) 0%, rgba(148,187,233,1) 100%);
 	}
+}
+
+table {
+  /*border: 1px solid #ccc;*/
+  border-collapse: collapse;
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  table-layout: fixed;
+}
+
+table caption {
+  font-size: 1.5em;
+  margin: .5em 0 .75em;
+}
+
+table tr {
+  /*background-color: #f8f8f8;
+  border: 1px solid #ddd;*/
+  padding: .35em;
+}
+
+table th,
+table td {
+  padding: .625em;
+  text-align: center;
+}
+
+td.artistName {
+	text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: nowrap;
+    width: 150px;
+    text-align: left;
+    @media screen and (max-width: 550px) {
+    	width: 125px;
+    }
+}
+td.actions {
+	width: 5%;
+	padding: 0;
+}
+
+table th {
+  font-size: .85em;
+  letter-spacing: .1em;
+  text-transform: uppercase;
 }

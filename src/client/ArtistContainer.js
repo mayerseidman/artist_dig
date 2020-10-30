@@ -1,6 +1,9 @@
 import React, { Component } from 'react';
 import '../css/app.css';
 import ReactImage from './react.png';
+import SoundcloudImage from './soundcloud.png';
+import SpotifyImage from './spotify.png';
+import YoutubeImage from './youtube.png';
 
 export default class App extends Component {
     constructor(props) {
@@ -44,22 +47,30 @@ export default class App extends Component {
     renderArtist() {
         var artist = this.props.artistName;
         const soundcloudURL = "https://soundcloud.com/search/people?q=" + artist;
-        const spoitfyURL = "https://open.spotify.com/search/people?q=" + artist;
+        const spotifyURL = "https://open.spotify.com/search/people?q=" + artist;
+        const youtubeURL = "https://www.youtube.com/results?search_query=" + artist + "music artist";
+        var editLink = (<a onClick={ this.openEditArtist.bind(this, artist) }>Edit</a>)
+        var deleteLink = (<a onClick={ this.deleteArtist.bind(this, artist) }>Delete</a>)
         return (
-            <div>
-                <div>
-                    <span>Soundcloud: </span>
-                    <a className="artistLink" href={ soundcloudURL } target="_blank">{ artist }</a>
-                </div>
-                <div>
-                    <span>Spotify: </span>
-                    <a className="artistLink" href={ spoitfyURL } target="_blank">{ artist }</a>
-                </div>
-                <div>
-                    <a onClick={ this.openEditArtist.bind(this, artist) }>Edit</a> 
-                    <a onClick={ this.deleteArtist.bind(this, artist) }>Delete</a>
-                </div>
-            </div>
+            <tr>
+                <td data-label="Edit" className="artistName">{ artist}</td>
+                <td data-label="Soundcloud" className="soundcloud">
+                    <a className="artistLink" href={ soundcloudURL } target="_blank">
+                        <img src={ SoundcloudImage } />
+                    </a>
+                </td>
+                <td data-label="Spotify">
+                    <a className="artistLink" href={ spotifyURL } target="_blank">
+                        <img src={ SpotifyImage } />
+                    </a>
+                </td>
+                <td data-label="Youtube">
+                    <a className="artistLink" href={ youtubeURL } target="_blank">
+                        <img src={ YoutubeImage } />
+                    </a>
+                </td>
+                <td data-label="Edit" className="actions">...</td>
+            </tr>
         )
     }
 
@@ -73,10 +84,6 @@ export default class App extends Component {
         } else {
             var artistContainer = this.renderArtist();
         }
-        return (
-            <div className="artistContainer">
-                { artistContainer } 
-            </div>       
-        )
+        return artistContainer;
     }
 }

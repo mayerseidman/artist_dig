@@ -130,7 +130,7 @@ function uploadImage(file) {
 			.field('language', 'eng')
 			// .field('url', 'http://dl.a9t9.com/ocrbenchmark/eng.png')
 			// .field('url', 'http://' + req.headers.host + '/' + req.file.path)
-			.field('url', 'https://9a2396e4be10.ngrok.io/' + file.path)
+			.field('url', 'https://ba43f8893c93.ngrok.io/' + file.path)
 			.end(function (res) {
 				if (res.error) reject(res.error);
 				// console.log(JSON.parse(res.raw_body)) // files wont work above 1mb!!
@@ -139,10 +139,9 @@ function uploadImage(file) {
 				var parsedResults = JSON.parse(res.raw_body).ParsedResults[0].ParsedText;
 				// var result = parsedResults.replace(/(?:\\[rn]|[\r\n]+)+/g, "\n").split("\n");
 				// console.log(parsedResults.replace(/[a-z]\)\s+|•\s+|[A-Z]\.\s+|[IVX]+\.\s+/g, "").split("\n"));
-				var result = parsedResults.replace(/[•\t]+/g, "\n").split("\n")
+				var result = parsedResults.replace(/[•\t]+/g, "\n").split("\n");
 				var sortedResult = _.reject(result, function(artist) { 
 					return check(artist)
-					return artist.toUpperCase().includes("DECEMBER") ||  artist.toUpperCase().includes("@") || artist.toUpperCase().includes("TICKET")
 				});
 				console.log(sortedResult)
 				var trimmedResult = sortedResult.map(r => r.trim());

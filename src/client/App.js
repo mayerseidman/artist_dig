@@ -104,11 +104,25 @@ export default class App extends Component {
                 }.bind(this))    
             }
         }
+        var headers = (
+            <thead>
+                <tr>
+                    <th scope="col">Account</th>
+                    <th scope="col">Due Date</th>
+                    <th scope="col">Amount</th>
+                    <th scope="col">Period</th>
+                </tr>
+            </thead>
+        )
         return (
             <div className={ "locateArtistsContainer  " + className }>
                 { startContainer }
                 <div className="linksContainer">
-                    { artistsDisplay }
+                    <table>
+                        <tbody>
+                            { artistsDisplay }
+                        </tbody>
+                    </table>
                 </div>
             </div>
         );
