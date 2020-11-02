@@ -36,9 +36,18 @@ export default class App extends Component {
         fetch("/api/uploadFile", {
             method: 'POST',
             body: formData
-        }).then(response => response.json())
-        .then((value) => {
+        }).then(response => {
+            console.log(response)
+            if (response.ok) {
+                console.log("OK!")
+                return response.json()
+            } else {
+                console.log("NOT OK")
+                 this.setState({ loading: false })
+            }
+        }).then((value) => {
             this.setState({ artists: value, loading: false })
+            return value;
         })
     }
 

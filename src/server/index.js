@@ -111,8 +111,9 @@ function check (artist) {
 
 	function contains(target, pattern){
 	    var value = 0;
-	    pattern.forEach(function(word){
-	      value = value + target.includes(word);
+		pattern.forEach(function(word){
+	    	value = value + target.includes(word) || target.toUpperCase().includes(word);
+	    	console.log(word, word.toUpperCase())
 	    });
 	    return (value === 1)
 	}
@@ -130,22 +131,33 @@ function uploadImage(file) {
 			.field('language', 'eng')
 			// .field('url', 'http://dl.a9t9.com/ocrbenchmark/eng.png')
 			// .field('url', 'http://' + req.headers.host + '/' + req.file.path)
-			.field('url', 'https://ba43f8893c93.ngrok.io/' + file.path)
+			.field('url', 'https://70dc8699b642.ngrok.io/' + file.path)
 			.end(function (res) {
-				if (res.error) reject(res.error);
-				// console.log(JSON.parse(res.raw_body)) // files wont work above 1mb!!
-				// replace all link breaks with one simple break and then split on the line break thereby ensuring each array item is separated on its own
-				// var result = JSON.parse(res.raw_body).ParsedResults[0].ParsedText.replace(/[•\t.+]/g, '').replace(/(?:\\[rn]|[\r\n]+)+/g, "\n").split("\n")
-				var parsedResults = JSON.parse(res.raw_body).ParsedResults[0].ParsedText;
-				// var result = parsedResults.replace(/(?:\\[rn]|[\r\n]+)+/g, "\n").split("\n");
-				// console.log(parsedResults.replace(/[a-z]\)\s+|•\s+|[A-Z]\.\s+|[IVX]+\.\s+/g, "").split("\n"));
-				var result = parsedResults.replace(/[•\t]+/g, "\n").split("\n");
-				var sortedResult = _.reject(result, function(artist) { 
-					return check(artist)
-				});
-				console.log(sortedResult)
-				var trimmedResult = sortedResult.map(r => r.trim());
-				resolve(trimmedResult);
+				var rawBody = JSON.parse(res.raw_body);
+				console.log(rawBody);
+				if (rawBody.ErrorMessage && rawBody.ErrorMessage[0].includes("File size exceeds")) {
+					// if (res.error) reject(res.error);
+					console.log("SIZE ERROR");
+					return reject("Failed");
+				} else if (rawBody.ErrorMessage) {
+					if (res.error) reject(res.error);
+					console.log("Other ERROR");
+				} else {
+					if (res.error) reject(res.error);
+					// console.log(JSON.parse(res.raw_body)) // files wont work above 1mb!!
+					// replace all link breaks with one simple break and then split on the line break thereby ensuring each array item is separated on its own
+					// var result = JSON.parse(res.raw_body).ParsedResults[0].ParsedText.replace(/[•\t.+]/g, '').replace(/(?:\\[rn]|[\r\n]+)+/g, "\n").split("\n")
+					var parsedResults = JSON.parse(res.raw_body).ParsedResults[0].ParsedText;
+					// var result = parsedResults.replace(/(?:\\[rn]|[\r\n]+)+/g, "\n").split("\n");
+					// console.log(parsedResults.replace(/[a-z]\)\s+|•\s+|[A-Z]\.\s+|[IVX]+\.\s+/g, "").split("\n"));
+					var result = parsedResults.replace(/[•\t]+/g, "\n").split("\n");
+					var sortedResult = _.reject(result, function(artist) { 
+						return check(artist)
+					});
+					console.log(sortedResult)
+					var trimmedResult = sortedResult.map(r => r.trim());
+					resolve(trimmedResult);
+				}
 			});
 	});
 }

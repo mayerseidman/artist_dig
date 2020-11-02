@@ -1,8 +1,11 @@
+body {
+	margin: 0;
+}
+
 .locateArtistsContainer {
 	background: linear-gradient(0deg, rgba(34,193,195,1) 0%, rgba(253,247,45,1) 100%);
 	background-repeat: no-repeat;
-	height: 100vh;
-	text-align: center;
+	/*height: 100vh !important;*/
 	.linksContainer {
 		width: 75%;
 		margin: auto;
@@ -12,10 +15,21 @@
 		}
 		.artistLink {
 			color: inherit;
+			img {
+				display: inline-block;
+				vertical-align: top; /* remove extra pixels under inline element */
+				width: 35px;
+				@media screen and (max-width: 550px) {
+					width: 25px;
+				}
+				&:hover {
+					opacity: 0.7;          
+				}
+			}
 		}
 		.soundcloud {
 			img {
-				width: 60px;
+				width: 45px;
 			}
 			@media screen and (max-width: 550px) {
 				img {
@@ -59,20 +73,8 @@
 	}
 }
 
-img {
-	display: inline-block;
-	vertical-align: top; /* remove extra pixels under inline element */
-	width: 40px;
-	@media screen and (max-width: 550px) {
-		width: 25px;
-	}
-}
-
-body {
-	margin: 0;
-}
-
 .loadingBackground {
+	height: 100vh !important;
 	animation-name: color;
 	animation-duration: 2s;
 	animation-iteration-count: infinite;
@@ -124,8 +126,12 @@ td.artistName {
     white-space: nowrap;
     width: 150px;
     text-align: left;
+    font-weight: bold;
     @media screen and (max-width: 550px) {
     	width: 125px;
+    }
+    @media screen and (min-width: 489px) {
+    	text-transform: uppercase;
     }
 }
 td.actions {
