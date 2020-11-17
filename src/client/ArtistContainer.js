@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import '../css/app.css';
+
 import ReactImage from './react.png';
 import SoundcloudImage from './soundcloud.png';
 import SpotifyImage from './spotify.png';
@@ -47,30 +48,70 @@ export default class App extends Component {
     renderArtist() {
         var artist = this.props.artistName;
         const soundcloudURL = "https://soundcloud.com/search/people?q=" + artist;
-        const spotifyURL = "https://open.spotify.com/search/people?q=" + artist;
+        const spotifyURL = "https://open.spotify.com/search/" + artist;
         const youtubeURL = "https://www.youtube.com/results?search_query=" + artist + "music artist";
-        var editLink = (<a onClick={ this.openEditArtist.bind(this, artist) }>Edit</a>)
-        var deleteLink = (<a onClick={ this.deleteArtist.bind(this, artist) }>Delete</a>)
+        var editLink = (<a className="editLink" onClick={ this.openEditArtist.bind(this, artist) }>EDIT</a>)
+        var deleteLink = (<a className="deleteLink" onClick={ this.deleteArtist.bind(this, artist) }>DELETE</a>)
+        if (this.state.editArtist) {
+            var artistField = (
+                <div className="our-cell artistName editContainer editMobile">
+                    <input type="text" className="form-control" ref="artistName" onChange={ this.handleChange.bind(this) } 
+                        value={ this.state.artistName } />
+                    <a onClick={ this.saveArtist.bind(this) }>Save</a>
+                </div>
+            )
+            var className = "hidden";
+            var pullLeft = "pullLeft";
+        } else {
+            var artistField = <div className="our-cell artistName">{ artist}</div>
+        }
+        var soundcloudField = (
+            <div className={ "our-cell soundcloud " + className }>
+                <a className="artistLink" href={ soundcloudURL } target="_blank">
+                    <img src={ SoundcloudImage } />
+                </a>
+            </div>
+        )
+        var spotifyField = (
+            <div className={ "our-cell serviceField " + className }>
+                <a className="artistLink" href={ spotifyURL } target="_blank">
+                    <img src={ SpotifyImage } />
+                </a>
+            </div>
+        )
+        var youtubeField = (
+            <div className={ "our-cell serviceField " + className }>
+                <a className="artistLink" href={ youtubeURL } target="_blank">
+                    <img src={ YoutubeImage } />
+                </a>
+            </div>
+        )
+        var actionsField = (
+            <div className="our-cell editContainer hideOnMobile">
+                { editLink }
+                { deleteLink }
+            </div>
+        )
+        var mobileActionsField = (
+            <div className={ "mobileActions " + pullLeft }>
+                <a href="#">...</a>
+                <div class="popover__content">
+                    <p class="popover__message">
+                        { editLink }
+                        { deleteLink }
+                    </p>
+                </div>
+            </div>
+        )
         return (
-            <tr>
-                <td data-label="Edit" className="artistName">{ artist}</td>
-                <td data-label="Soundcloud" className="soundcloud">
-                    <a className="artistLink" href={ soundcloudURL } target="_blank">
-                        <img src={ SoundcloudImage } />
-                    </a>
-                </td>
-                <td data-label="Spotify">
-                    <a className="artistLink" href={ spotifyURL } target="_blank">
-                        <img src={ SpotifyImage } />
-                    </a>
-                </td>
-                <td data-label="Youtube">
-                    <a className="artistLink" href={ youtubeURL } target="_blank">
-                        <img src={ YoutubeImage } />
-                    </a>
-                </td>
-                <td data-label="Edit" className="actions">...</td>
-            </tr>
+            <div className="our-row">
+                { artistField }
+                { soundcloudField }
+                { spotifyField }
+                { youtubeField }
+                { actionsField }
+                { mobileActionsField }
+            </div>
         )
     }
 
@@ -79,11 +120,7 @@ export default class App extends Component {
     }
 
     render() {
-        if (this.state.editArtist) {
-            var artistContainer= this.renderEditField();
-        } else {
-            var artistContainer = this.renderArtist();
-        }
+        var artistContainer = this.renderArtist();
         return artistContainer;
     }
 }
