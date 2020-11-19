@@ -1,9 +1,11 @@
+@import "../scss/variables";
+
 .resultsContainer {
 	width: 75%;
 	margin: auto;
 	padding-bottom: 20px;
 	/*margin-top: 30px;*/
-	@media screen and (max-width: 550px) {
+	@media #{$mobile} {
 		width: 100%;
 	}
 	.artistLink {
@@ -12,7 +14,7 @@
 			display: inline-block;
 			vertical-align: top; /* remove extra pixels under inline element */
 			width: 35px;
-			@media screen and (max-width: 550px) {
+			@media #{$mobile} {
 				width: 25px;
 			}
 			&:hover {
@@ -24,7 +26,7 @@
 		img {
 			width: 60px;
 		}
-		@media screen and (max-width: 550px) {
+		@media #{$mobile} {
 			img {
 				width: 45px;
 			}
@@ -34,13 +36,56 @@
 		font-size: 32px;
 	    margin-bottom: 0px;
 	    font-weight: bold;
-	    @media screen and (max-width: 489px) {
+	    border-bottom: 1px solid #8683ab;
+	    @media #{$mobile} {
 	    	padding-bottom: 3px;
 	    	padding-left: 12px;
-	    	border-bottom: 1px solid;
 	    	margin-top: 25px;
 	    }
+	    a {
+	    	float: right;
+    	    font-size: 1rem;
+    	    font-weight: normal;
+    	    vertical-align: bottom;
+    	    position: relative;
+    	    top: 15px;
+    	    cursor: pointer;
+    	    @media #{$mobile} {
+    	    	font-size: 0.8rem;
+    	    	top: 22px;
+    	    }
+    	    &:hover {
+    	    	border-bottom: 4px solid #000;
+    	    	padding-bottom: 5px;
+    	    }
+	    }
 	}
+	.notificationContainer {
+		position: fixed;
+	    width: 75%;
+	    bottom: 35px;
+	    text-align: center;
+	    margin: auto;
+	    -webkit-animation: fadein 2s linear; /* Safari, Chrome and Opera > 12.1 */
+		-moz-animation: fadein 2s linear; /* Firefox < 16 */
+		-ms-animation: fadein 2s linear; /* Internet Explorer */
+		-o-animation: fadein 2s linear; /* Opera < 12.1 */
+		animation: fadein 2s linear;
+	    &.save {
+	    	background: green;
+	    	color: white;
+	    }
+	    &.delete {
+	    	background: red;
+	    	color: white;
+	    }
+	}
+}
+@keyframes fadein {
+    from { bottom: 0px; }
+    to { bottom: 35px; }
+    0% { opacity: 0; }
+    50% { opacity: 1; }
 }
 .artistContainer {
 	text-align: left;
@@ -78,20 +123,20 @@
 }
 
 .resultsBackground {
-	height: auto;
-	padding: 15px;
+	/*height: auto;
+	padding: 15px;*/
 	/*padding-top: 40px;*/
 	&.longer {
-		height:100vh;
+		height: 100vh;
 	}
 }
 
 @keyframes color {
 	0% {
-    	background: radial-gradient(circle, rgba(63,94,251,1) 0%, rgba(252,70,107,1) 100%);
+    	background: linear-gradient(180deg, #E5F392 0%, #E49E71 100%) fixed;
 	}
 	50% {
-    	background: radial-gradient(circle, rgba(238,174,202,1) 0%, rgba(148,187,233,1) 100%);
+    	background: linear-gradient(180deg, #F4F269 0%, #5CB270 100%) fixed;
 	}
 }
 
@@ -135,20 +180,27 @@ table th {
 	margin: 20px auto;
 	text-align: center;
 	display: table;
-	@media screen and (max-width: 489px) {
+	@media #{$mobile} {
 		margin: 5px auto;
+	}
+	.emptyText {
+		text-align: left;
+		margin-top: 0px;
+	}
+	.artistName, .emptyText {
+		font-size: 18px;
 	}
 }
 .our-table .our-row {
 	display: table-row;
-	@media screen and (max-width: 489px) {
+	@media #{$mobile} {
 		display: inherit;
 		marign-bottom: 5px;
 	}
 	.our-cell {
 		display: table-cell;
 		padding: 10px;
-		@media screen and (max-width: 489px) {
+		@media #{$mobile} {
 			padding-left: 12px !important;
 			vertical-align: middle;
 			display: inline-block;
@@ -178,6 +230,7 @@ table th {
 		    }
 		    @media screen and (min-width: 489px) {
 		    	text-transform: uppercase;
+		    	max-width: 125px;
 		    }
 		    a {
 		    	margin-left: 10px;
@@ -186,7 +239,7 @@ table th {
 		&.editContainer {
 			overflow: inherit;
 			/*&.editMobile {
-				@media screen and (max-width: 489px) {
+				@media #{$mobile} {
 					width: 100%;
 				}
 			}*/
@@ -205,9 +258,8 @@ table th {
 	}
 	.editLink, .deleteLink {
 		margin-right: 15px;
-		@media screen and (min-width: 489px) {
+		@media #{$mobile} {
 			font-size: 0.8em;
-			margin-top: 5PX;
 		}
 	}
 }
@@ -220,15 +272,18 @@ table th {
 	bottom: 4px;
 	font-size: 20px;
 	text-decoration: none;
-	&.pullLeft {
+	/*&.pullLeft {
 		right: 18.5%;
-	}
+	}*/
 	@media screen and (min-width: 489px) {
 		display: none !important;
 	}
+	a {
+		text-decoration: none;
+	}
 }
 .hidden {
-	@media screen and (max-width: 489px) {
+	@media #{$mobile} {
 		visibility: hidden;
 	}
 }
@@ -237,6 +292,13 @@ table th {
 	@media screen and (min-width: 489px) {
 		display: table-cell !important;
 	}
+}
+.smallTable {
+    @media screen and (min-width: 489px) {
+		width: 60%;
+	    display: inline-table;
+	    vertical-align: top;
+    }
 }
 /*
 .popover__title {

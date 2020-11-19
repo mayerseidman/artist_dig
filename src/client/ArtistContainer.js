@@ -1,10 +1,10 @@
 import React, { Component } from 'react';
-import '../css/app.css';
 
-import ReactImage from './react.png';
-import SoundcloudImage from './soundcloud.png';
-import SpotifyImage from './spotify.png';
-import YoutubeImage from './youtube.png';
+import SoundcloudImage from './images/icons/soundcloud.png';
+import SpotifyImage from './images/icons/spotify.png';
+import YoutubeImage from './images/icons/youtube.png';
+
+import '../css/app.css';
 
 export default class App extends Component {
     constructor(props) {

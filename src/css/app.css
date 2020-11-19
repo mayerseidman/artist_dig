@@ -1,3 +1,5 @@
+@import "../scss/variables";
+
 @font-face {
     font-family: 'poppins';
     src: url('../fonts/poppins/Poppins-Regular.ttf') format('ttf'),
@@ -22,7 +24,7 @@ html, body {
 	/*background: linear-gradient(0deg, rgba(34,193,195,1) 0%, rgba(253,247,45,1) 100%);
 	background-repeat: no-repeat;*
 	/*height: 100vh !important;*/
-	height:100vh;
+	/*height:100vh;*/
 	/*#infoContainer {
 		text-align: left;
 	    display: -webkit-box;
@@ -99,9 +101,23 @@ html, body {
         }
 	}*/
 
+	.loadingText {
+		font-size: 40px;
+	    position: absolute;
+	    left: 50%;
+	    margin-left: -225PX;
+	    @media #{$mobile} {
+	    	position: relative;
+	    	left: 0;
+	    	font-size: 30px;
+	    	text-align: center;
+	    	margin-left: 0;
+	    }
+	}
 
 
-	.modernViewContainer #container {
+
+	.viewContainer #container {
 	    display: -webkit-box;
 	    display: flex;
 	    -webkit-box-orient: horizontal;
@@ -116,7 +132,7 @@ html, body {
 	    	padding-top: 25px;
 	    	height: auto;
 	    }
-	    .modernViewRenderer {
+	    .viewRenderer {
 	        display: -webkit-box;
 	        display: flex;
 	        -webkit-box-orient: horizontal;
@@ -130,8 +146,8 @@ html, body {
 	        @media screen and (max-width: 1000px) {
 	        	flex-direction: column;
 	        }
-	        #textbox {
-	            text-align: left;
+	        #textContainer {
+	            text-align: center;
 	            display: -webkit-box;
 	            display: flex;
 	            -webkit-box-orient: vertical;
@@ -148,7 +164,7 @@ html, body {
             	  	font-size: 30px;
             	    line-height: 36px;
             	    margin: 0;
-            	    @media screen and (max-width: 450px) {
+            	    @media #{$mobile} {
             	    	font-size: 28px;
             	    	line-height: 34px;
             	    }
@@ -162,7 +178,7 @@ html, body {
 	            p {
 	            	margin-top: 20px;
 	            	margin-bottom: 20PX;
-	            	@media screen and (max-width: 450px) {
+	            	@media #{$mobile} {
 	            		margin-bottom: 0px;
 	            		font-size: 16px;
 	            	}
@@ -183,9 +199,13 @@ html, body {
         	        @media screen and (max-width: 1000px) {
         	        	width: 100%;
         	        }
-        	        @media screen and (max-width: 450px) {
+        	        @media #{$mobile} {
         	        	margin-top: 20px;
         	        	margin-bottom: 0px;
+        	        }
+        	        &:hover {
+        	        	background: #4B725D;
+        	        	color: #fff;
         	        }
 	            }
 	            .errorMessage {
@@ -196,7 +216,7 @@ html, body {
 	            		margin-top: 15px;
 	            		margin-bottom: 0px;
 	            	}
-	            	@media screen and (max-width: 450px) {
+	            	@media #{$mobile} {
 	            		margin-top: 0px;
 	            		margin-bottom: 15px;
 	            		font-size: 15px;
@@ -206,13 +226,13 @@ html, body {
 	        .content {
 	            width: 25rem;
 	            text-align: center;
-	            @media screen and (max-width: 489px) {
-	            	width: 21rem;
+	           	@media #{$mobile} {
+	            	width: 21rem !important;
 	            	margin-top: 5px;
 	            }
 	            /*padding: 3.2rem 0;*/
 	            .uploadBTN {
-	            	@media screen and (max-width: 450px) {
+	            	@media #{$mobile} {
 	            		margin-bottom: 0px;
 	            	}
 	            }
@@ -223,8 +243,7 @@ html, body {
             	    margin-bottom: 10px !important;
             	    opacity: 0.8;
             	    &.error {
-            	    	color: red;
-            	    	color: #936067;
+            	    	color: #d60e0e;
             	    	opacity: 1;
             	    }
 	            }
@@ -234,11 +253,12 @@ html, body {
 	            opacity: 0.3;
 	            width: 0;
 	            margin: .5rem 6.4rem;
-	            @media screen and (max-width: 450px) {
+	            @media #{$mobile} {
 	            	display: none;
 	            }
 	        }
-	        #buttonsbox {
+	        #buttonsContainer {
+	        	width: 22rem;
 	            -webkit-box-pack: start;
 	            justify-content: flex-start;
 	            display: -webkit-box;
@@ -246,6 +266,9 @@ html, body {
 	            -webkit-box-orient: vertical;
 	            -webkit-box-direction: normal;
 	            flex-direction: column;
+	            @media screen and (min-width: 489px) and (max-width: 1000px) {
+	            	width: 25rem !important;
+	            }
 	            .btn.primary {
 	                position: relative;
 	                background: transparent;
@@ -276,14 +299,22 @@ html, body {
 	                margin-bottom: 15px
 	            }
 	            .btn .img {
-	                width: 3rem;
-	                height: 3rem;
+	                /*width: 3rem;
+	                height: 3rem;*/
 	                margin: auto 2.2rem;
+	                width: 5rem;
+	                height: 99px;
+	                margin-left: 0;
+	                border-radius: .4rem;
+	                @media screen and (max-width: 1000px) {
+	                	width: 5rem;
+	                	height: 80px;
+	                }
 	            }
-	            .btn.primary .text {
+	            .btn.primary .lineupText {
 	                margin: 3.2rem 0;
 	            }
-	            .btn .text {
+	            .btn .lineupText {
 	                text-align: left;
 	                width: calc(42rem - 13.6rem);
 	            }
@@ -292,13 +323,13 @@ html, body {
             	    font-size: 16px;
             	    opacity: 0.75;
             	    font-weight: bold;
-            	    @media screen and (max-width: 489px) {
+            	    @media #{$mobile} {
             	    	margin-top: 0px;
             	    	text-align: center;
             	    	margin-bottom: 10px;
             	    }
 	            }
-	            .text {
+	            .lineupText {
 	            	font-family: poppins;
 	            	font-size: 13px;
 	            	h3 {
@@ -311,5 +342,29 @@ html, body {
 	            }
 	        }
 	    }
+	}
+	.viewImage {
+		display: none;
+	    -webkit-animation: fadein 2s linear; /* Safari, Chrome and Opera > 12.1 */
+		-moz-animation: fadein 2s linear; /* Firefox < 16 */
+		-ms-animation: fadein 2s linear; /* Internet Explorer */
+		-o-animation: fadein 2s linear; /* Opera < 12.1 */
+		animation: fadein 2s linear;
+	    @media screen and (min-width: 489px) {
+    		width: 35%;
+    	    margin-left: 5%;
+    	    margin-top: 15px;
+	    }
+	    @media #{$mobile} {
+	    	width: 100%;
+	    	margin-top: 5px;
+	    }
+	    &.show {
+	    	display: inline-block;
+	    }
+	}
+	@keyframes fadein {
+	    0% { opacity: 0; }
+	    50% { opacity: 1; }
 	}
 }

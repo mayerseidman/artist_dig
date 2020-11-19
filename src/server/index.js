@@ -128,7 +128,7 @@ function uploadImage(file) {
 			.field('language', 'eng')
 			// .field('url', 'http://dl.a9t9.com/ocrbenchmark/eng.png')
 			// .field('url', 'http://' + req.headers.host + '/' + req.file.path)
-			.field('url', 'https://379615ef56fa.ngrok.io/' + file.path)
+			.field('url', 'https://d713ff4f1970.ngrok.io/' + file.path) 
 			.end(function (res) {
 
 				var rawBody = JSON.parse(res.raw_body);
