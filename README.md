@@ -12,5 +12,10 @@
 * REACT
 * OCR SPACE API
 
-## LIVE SITE
-### https://discover-new-tunes.herokuapp.com/
+### ENJOY
+Feel free to check out the site and if you wan't to reach me, [say hello](https://twitter.com/mayerseidman).<br/><br/>
+
+LIVE SITE: https://discover-new-tunes.herokuapp.com/
+
+
+
