@@ -8,8 +8,9 @@
 4. Enjoy new artists & new tunes
 
 ## STACK
-
-### Folder Structure
+* NODE
+* REACT
+* OCR SPACE API
 
 ## LIVE SITE
 ### https://discover-new-tunes.herokuapp.com/
