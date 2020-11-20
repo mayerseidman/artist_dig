@@ -11,114 +11,39 @@ html, body {
 	font-family: 'poppins';
 	margin: 0;
 	/*height: 100%;*/
-	/*background: linear-gradient(0deg, #22c1c3 0%, #fdf72d 100%) fixed;
-	background: linear-gradient(180deg, #A4E9F9 0%, rgba(197, 174, 242, 0.48) 100%) no-repeat;*/
 	background: linear-gradient(180deg, #A4E9F9 0%, #c5aef2 100%) fixed;
 }
 
-/** {
-    flex-shrink: 0;
-}*/
-
 .locateArtistsContainer {
-	/*background: linear-gradient(0deg, rgba(34,193,195,1) 0%, rgba(253,247,45,1) 100%);
-	background-repeat: no-repeat;*
-	/*height: 100vh !important;*/
-	/*height:100vh;*/
-	/*#infoContainer {
-		text-align: left;
-	    display: -webkit-box;
-	    display: flex;
-	    -webkit-box-orient: vertical;
-	    -webkit-box-direction: normal;
-	    flex-direction: column;
-	    -webkit-box-pack: center;
-	    justify-content: center;
-	    color: #605e5c;
-	    font-size: 1.4rem;
-	    line-height: 1.2857;
-		.pageHeader {
-			font-family: Poppins;
-			color: #252424;
-		    font-weight: bold;
-		    font-size: 3.2rem;
-		    line-height: 4rem;
-			color: rgba(0, 0, 0, 0.85);
+	&.loadingBackground {
+		height: 100vh !important;
+		animation-name: color;
+		animation-duration: 2s;
+		animation-iteration-count: infinite;
+		.loadingText {
+			font-size: 40px;
+		    position: absolute;
+		    left: 50%;
+		    margin-left: -225PX;
+		    padding-top: 30px;
+		    @media #{$mobile} {
+		    	position: relative;
+		    	left: 0;
+		    	font-size: 30px;
+		    	text-align: center;
+		    	margin-left: 0;
+		    }
 		}
-		.subHeader {
-			font-family: Poppins;
-			font-weight: normal;
-			font-size: 24px;
-			line-height: 30px;
-
-			text-align: center;
-			color: rgba(0, 0, 0, 0.85);
-
-			opacity: 0.7;
-			width: 39%;
-		    margin-left: auto;
-		    margin-right: auto;
-		} 
 	}
-	.content {
-		width: 42rem;
-	    text-align: center;
-	    padding: 3.2rem 0;
+	@keyframes color {
+		0% {
+	    	background: linear-gradient(180deg, #E5F392 0%, #E49E71 100%) fixed;
+		}
+		50% {
+	    	background: linear-gradient(180deg, #F4F269 0%, #5CB270 100%) fixed;
+		}
 	}
-	#buttonsContainer {
-		-webkit-box-pack: start;
-	    justify-content: flex-start;
-	    display: -webkit-box;
-	    display: flex;
-	    -webkit-box-orient: vertical;
-	    -webkit-box-direction: normal;
-	    flex-direction: column;
-	    div {
-	    	height: 30px;
-	    	border: 1px solid #000;
-	    }
-	}
-	.divider {
-		border-left: 0.1rem solid #e1dfdd;
-	    width: 0;
-	    margin: .5rem 6.4rem;
-	}
-	.container {
-	    display: flex;
-        -webkit-box-orient: horizontal;
-        -webkit-box-direction: normal;
-        flex-direction: row;
-        -webkit-box-pack: center;
-        justify-content: center;
-        -webkit-box-align: center;
-        align-items: center;
-        height: 100vh;
-        .innerRenderer {
-    		display: flex;
-    	    -webkit-box-orient: horizontal;
-    	    -webkit-box-direction: normal;
-    	    flex-direction: row;
-        }
-	}*/
-
-	.loadingText {
-		font-size: 40px;
-	    position: absolute;
-	    left: 50%;
-	    margin-left: -225PX;
-	    @media #{$mobile} {
-	    	position: relative;
-	    	left: 0;
-	    	font-size: 30px;
-	    	text-align: center;
-	    	margin-left: 0;
-	    }
-	}
-
-
-
 	.viewContainer #container {
-	    display: -webkit-box;
 	    display: flex;
 	    -webkit-box-orient: horizontal;
 	    -webkit-box-direction: normal;
@@ -133,16 +58,10 @@ html, body {
 	    	height: auto;
 	    }
 	    .viewRenderer {
-	        display: -webkit-box;
 	        display: flex;
 	        -webkit-box-orient: horizontal;
 	        -webkit-box-direction: normal;
 	        flex-direction: row;
-	        .header, .tagline {
-	        	@media screen and (max-width: 489px) {
-	        		text-align: center;
-	        	}
-	        }
 	        @media screen and (max-width: 1000px) {
 	        	flex-direction: column;
 	        }
@@ -155,9 +74,16 @@ html, body {
 	            flex-direction: column;
 	            -webkit-box-pack: center;
 	            justify-content: center;
-	            color: #605e5c;
 	            line-height: 26px;
 	            font-size: 20px;
+				.header, .tagline {
+					@media screen and (max-width: 489px) {
+						text-align: center;
+					}
+				}
+				.header, .uploadBTN, .requirementsText {
+					color: rgba(0,0,0, 0.85);
+				}
 	            h1 {
 	            	color: #252424;
             	    font-weight: bold;
@@ -169,13 +95,8 @@ html, body {
             	    	line-height: 34px;
             	    }
 	            }
-	            /*h1, p {
-	            	text-align: center;
-	            	@media screen and (max-width: 450px) {
-	            		text-align: left;
-	            	}
-	            }*/
-	            p {
+	            .tagline {
+	            	color: rgba(0,0,0, 0.65);
 	            	margin-top: 20px;
 	            	margin-bottom: 20PX;
 	            	@media #{$mobile} {
@@ -183,7 +104,7 @@ html, body {
 	            		font-size: 16px;
 	            	}
 	            }
-	            button {
+	           	.uploadBTN {
 	            	background: #8AD8AE;
 	            	width: 150px;
             	    height: 45PX;
@@ -208,34 +129,6 @@ html, body {
         	        	color: #fff;
         	        }
 	            }
-	            .errorMessage {
-	            	font-size: 16px;
-	            	margin-top: 20px;
-	            	color: red;
-	            	@media screen and (max-width: 1000px) {
-	            		margin-top: 15px;
-	            		margin-bottom: 0px;
-	            	}
-	            	@media #{$mobile} {
-	            		margin-top: 0px;
-	            		margin-bottom: 15px;
-	            		font-size: 15px;
-	            	}
-	            }
-	        }
-	        .content {
-	            width: 25rem;
-	            text-align: center;
-	           	@media #{$mobile} {
-	            	width: 21rem !important;
-	            	margin-top: 5px;
-	            }
-	            /*padding: 3.2rem 0;*/
-	            .uploadBTN {
-	            	@media #{$mobile} {
-	            		margin-bottom: 0px;
-	            	}
-	            }
 	            .requirementsText {
 	            	margin-top: 5px !important;
             	    font-size: 12.5px !important;
@@ -246,6 +139,14 @@ html, body {
             	    	color: #d60e0e;
             	    	opacity: 1;
             	    }
+	            }
+	        }
+	        .content {
+	            width: 25rem;
+	            text-align: center;
+	           	@media #{$mobile} {
+	            	width: 21rem !important;
+	            	margin-top: 5px;
 	            }
 	        }
 	        .vl {
@@ -261,7 +162,6 @@ html, body {
 	        	width: 22rem;
 	            -webkit-box-pack: start;
 	            justify-content: flex-start;
-	            display: -webkit-box;
 	            display: flex;
 	            -webkit-box-orient: vertical;
 	            -webkit-box-direction: normal;
@@ -276,22 +176,21 @@ html, body {
 	                box-shadow: 0 0.16rem 0.36rem 0 rgba(0, 0, 0, 0.13), 0 0.03rem 0.09rem 0 rgba(0, 0, 0, 0.11);
 	                border: 2.5px solid rgba(0,0,0, 0.5);
 	                cursor: pointer;
+	                color: rgba(0,0,0, 0.85);
 	            }
 	            .btn.primary:hover {
 	                box-shadow: 0 0.06rem 0.18rem 0 rgba(0, 0, 0, 0.11), 0 0.32rem 0.72rem 0 rgba(0, 0, 0, 0.13);
 	                background-color: rgba(0, 0, 0, 0.8);
-	                color: rgba(255,255,255, 0.95);
+	                color: rgba(255,255,255, 0.85);
 	                p {
-	                	color: rgba(255,255,255, 0.95);
+	                	color: rgba(255,255,255, 0.85);
 	                }
 	            }
 	            .btn {
 	            	@media screen and (max-width: 1000px) {
 	            		height: 85px;
 	            	}
-	                border: none;
 	                padding: 0;
-	                display: -webkit-box;
 	                display: flex;
 	                -webkit-box-align: center;
 	                align-items: center;
@@ -299,8 +198,6 @@ html, body {
 	                margin-bottom: 15px
 	            }
 	            .btn .img {
-	                /*width: 3rem;
-	                height: 3rem;*/
 	                margin: auto 2.2rem;
 	                width: 5rem;
 	                height: 99px;
@@ -321,7 +218,7 @@ html, body {
 	            .guideText {
 	            	text-align: left;
             	    font-size: 16px;
-            	    opacity: 0.75;
+            	    opacity: 0.85;
             	    font-weight: bold;
             	    @media #{$mobile} {
             	    	margin-top: 0px;
@@ -337,34 +234,10 @@ html, body {
 	            	}
 	            	p {
 	            		margin-top: 0px;
-	            		color: rgba(0, 0, 0, 0.6);
+	            		color: rgba(0, 0, 0, 0.65);
 	            	}
 	            }
 	        }
 	    }
-	}
-	.viewImage {
-		display: none;
-	    -webkit-animation: fadein 2s linear; /* Safari, Chrome and Opera > 12.1 */
-		-moz-animation: fadein 2s linear; /* Firefox < 16 */
-		-ms-animation: fadein 2s linear; /* Internet Explorer */
-		-o-animation: fadein 2s linear; /* Opera < 12.1 */
-		animation: fadein 2s linear;
-	    @media screen and (min-width: 489px) {
-    		width: 35%;
-    	    margin-left: 5%;
-    	    margin-top: 15px;
-	    }
-	    @media #{$mobile} {
-	    	width: 100%;
-	    	margin-top: 5px;
-	    }
-	    &.show {
-	    	display: inline-block;
-	    }
-	}
-	@keyframes fadein {
-	    0% { opacity: 0; }
-	    50% { opacity: 1; }
 	}
 }

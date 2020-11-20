@@ -9,116 +9,142 @@ import '../css/app.css';
 export default class App extends Component {
     constructor(props) {
         super(props);
-        this.state = { loading: false, artistName: null, originalName: null, editArtist: false };
+        this.state = { artistName: null, originalName: null, editArtist: false };
     }
-
-    openEditArtist() {
+    openEditArtist = () => {
         this.setState({ editArtist: true })
     }
-
     handleChange({ target: { value } }) {
         this.setState({ originalArtist: this.state.artistName })
         this.setState(prevState=> ({ artistName: value }));
     }
-
-    // Really should be doing the saving at top level and then it automatically adjusts everything in here too...
-    saveArtist(e) {
-        console.log(this.refs.artistName.value)
+    saveArtist = (e) => {
         var newName = this.refs.artistName.value;
         var oldName = this.state.originalName;
         this.props.saveArtist(oldName, newName)
         this.setState({ editArtist: false })
     }
-
-    deleteArtist(artist) {
+    deleteArtist = (artist) => {
         this.props.deleteArtist(artist);
     }
-
-    renderEditField() {
+    renderEditField = () => {
         var artist = this.state.artistName;
-        return (
+        var editField = (
             <div>
                 <input type="text" className="form-control" ref="artistName" onChange={ this.handleChange.bind(this) } 
                     value={ this.state.artistName } />
                 <a onClick={ this.saveArtist.bind(this) }>Save</a>
             </div>
         )
+        return editField;
     }
-
-    renderArtist() {
+    renderArtistField = () => {
         var artist = this.props.artistName;
-        const soundcloudURL = "https://soundcloud.com/search/people?q=" + artist;
-        const spotifyURL = "https://open.spotify.com/search/" + artist;
-        const youtubeURL = "https://www.youtube.com/results?search_query=" + artist + "music artist";
-        var editLink = (<a className="editLink" onClick={ this.openEditArtist.bind(this, artist) }>EDIT</a>)
-        var deleteLink = (<a className="deleteLink" onClick={ this.deleteArtist.bind(this, artist) }>DELETE</a>)
         if (this.state.editArtist) {
             var artistField = (
-                <div className="our-cell artistName editContainer editMobile">
+                <div className="ourCell artistName editContainer editMobile">
                     <input type="text" className="form-control" ref="artistName" onChange={ this.handleChange.bind(this) } 
                         value={ this.state.artistName } />
                     <a onClick={ this.saveArtist.bind(this) }>Save</a>
                 </div>
             )
-            var className = "hidden";
-            var pullLeft = "pullLeft";
         } else {
-            var artistField = <div className="our-cell artistName">{ artist}</div>
+            var artistField = <div className="ourCell artistName">{ artist}</div>
+        }
+        return artistField;
+    }
+    renderSoundcloudField = () => {
+        var artist = this.props.artistName;
+        const soundcloudURL = "https://soundcloud.com/search/people?q=" + artist;
+        if (this.state.editArtist) {
+            var className = "hidden";
         }
         var soundcloudField = (
-            <div className={ "our-cell soundcloud " + className }>
+            <div className={ "ourCell soundcloud " + className }>
                 <a className="artistLink" href={ soundcloudURL } target="_blank">
                     <img src={ SoundcloudImage } />
                 </a>
             </div>
         )
+        return soundcloudField;
+    }
+    renderSpotifyField = () => {
+        var artist = this.props.artistName;
+        const spotifyURL = "https://open.spotify.com/search/" + artist;
+        if (this.state.editArtist) {
+            var className = "hidden";
+        }
         var spotifyField = (
-            <div className={ "our-cell serviceField " + className }>
+            <div className={ "ourCell serviceField " + className }>
                 <a className="artistLink" href={ spotifyURL } target="_blank">
                     <img src={ SpotifyImage } />
                 </a>
             </div>
         )
+        return spotifyField;
+    }
+    renderYouTubeField = () => {
+        var artist = this.props.artistName;
+        const youtubeURL = "https://www.youtube.com/results?search_query=" + artist + "+music+artist";
+        if (this.state.editArtist) {
+            var className = "hidden";
+        }
         var youtubeField = (
-            <div className={ "our-cell serviceField " + className }>
+            <div className={ "ourCell serviceField " + className }>
                 <a className="artistLink" href={ youtubeURL } target="_blank">
                     <img src={ YoutubeImage } />
                 </a>
             </div>
         )
+        return youtubeField;
+    }
+    renderActions = () => {
+        var artist = this.props.artistName;
+        var editLink = (<a className="editLink" onClick={ this.openEditArtist.bind(this, artist) }>EDIT</a>)
+        var deleteLink = (<a className="deleteLink" onClick={ this.deleteArtist.bind(this, artist) }>DELETE</a>)
         var actionsField = (
-            <div className="our-cell editContainer hideOnMobile">
+            <div className="ourCell editContainer hideOnMobile">
                 { editLink }
                 { deleteLink }
             </div>
         )
+        return actionsField;
+    }
+    renderMobileActions = () => {
+        var artist = this.props.artistName;
+        if (this.state.editArtist) {
+            var pullLeft = "pullLeft";
+        }
+        var editLink = (<a className="editLink" onClick={ this.openEditArtist.bind(this, artist) }>EDIT</a>)
+        var deleteLink = (<a className="deleteLink" onClick={ this.deleteArtist.bind(this, artist) }>DELETE</a>)
         var mobileActionsField = (
             <div className={ "mobileActions " + pullLeft }>
                 <a href="#">...</a>
-                <div class="popover__content">
-                    <p class="popover__message">
+                <div class="popoverContent">
+                    <p class="popoverMessage">
                         { editLink }
                         { deleteLink }
                     </p>
                 </div>
             </div>
         )
+        return mobileActionsField;
+    }
+    renderArtist() {
         return (
-            <div className="our-row">
-                { artistField }
-                { soundcloudField }
-                { spotifyField }
-                { youtubeField }
-                { actionsField }
-                { mobileActionsField }
+            <div className="ourRow">
+                { this.renderArtistField() }
+                { this.renderSoundcloudField() }
+                { this.renderSpotifyField() }
+                { this.renderYouTubeField() }
+                { this.renderActions() }
+                { this.renderMobileActions() }
             </div>
         )
     }
-
     componentDidMount() {
         this.setState({ originalName: this.props.artistName, artistName: this.props.artistName })
     }
-
     render() {
         var artistContainer = this.renderArtist();
         return artistContainer;
