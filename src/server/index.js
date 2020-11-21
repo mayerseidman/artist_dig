@@ -32,15 +32,17 @@ var morgan = require('morgan');
 app.use(morgan('combined'));
 
 var multer = require('multer');
+const dir = path.join(__dirname, '../..', 'uploads')
+app.use('/uploads', express.static(dir))
 
 
 // CLEAR UPLOADS OF IMAGES
-fs.readdir('uploads', (err, files) => {
+fs.readdir(dir, (err, files) => {
 	console.log(__dirname)
   if (err) throw err;
 
   for (const file of files) {
-    fs.unlink(path.join('uploads', file), err => {
+    fs.unlink(path.join(dir, file), err => {
       if (err) throw err;
     });
   }
@@ -67,9 +69,6 @@ const upload = multer({
         }
     }
 });
-
-const dir = path.join(__dirname, '../..', 'uploads')
-app.use('/uploads', express.static(dir))
 
 
 // UPLOAD LINEUP FOR SCRAPING //
