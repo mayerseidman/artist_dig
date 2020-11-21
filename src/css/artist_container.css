@@ -8,8 +8,9 @@
 		width: 75%;
 		margin: auto;
 		padding-bottom: 20px;
+		overflow: auto;
 		@media #{$mobile} {
-			width: 100%;
+			width: 90%;
 		}
 		.header {
 			font-size: 32px;
@@ -19,7 +20,6 @@
 		    opacity: 0.85;
 		    @media #{$mobile} {
 		    	padding-bottom: 3px;
-		    	padding-left: 12px;
 		    	margin-top: 25px;
 		    }
 		    a {
@@ -37,6 +37,9 @@
 	    	    &:hover {
 	    	    	border-bottom: 4px solid #000;
 	    	    	padding-bottom: 5px;
+	    	    	@media #{$mobile} {
+	    	    		padding-bottom: 7px;
+	    	    	}
 	    	    }
 		    }
 		}
@@ -47,13 +50,14 @@
 			-ms-animation: fadein 2s linear;
 			-o-animation: fadein 2s linear; 
 			animation: fadein 2s linear;
-		    @media screen and (min-width: 489px) {
+		    @media screen and (min-width: 1100px) {
 	    		width: 35%;
 	    	    margin-left: 5%;
 	    	    margin-top: 15px;
 		    }
-		    @media #{$mobile} {
+		    @media screen and (max-width: 1099px){
 		    	width: 100%;
+		    	margin-left: 0%;
 		    	margin-top: 5px;
 		    }
 		    &.show {
@@ -96,6 +100,9 @@
 						vertical-align: middle;
 						display: inline-block;
 					}
+					@media screen and (max-width: 365px) {
+						padding-left: 7px !important;	
+					}
 
 					input {
 						border-radius: 5px;
@@ -133,6 +140,7 @@
 					    font-weight: 18px;
 					    @media screen and (max-width: 550px) {
 					    	width: 125px;
+					    	padding-left: 0px !important;
 					    }
 					    @media screen and (min-width: 489px) {
 					    	text-transform: uppercase;
@@ -181,13 +189,16 @@
 
 				.mobileActions {
 					display: table-cell;
-					padding-left: 10px;
 					position: relative;
 					bottom: 4px;
 					font-size: 20px;
 					text-decoration: none;
+					padding-left: 28px;
 					@media screen and (min-width: 489px) {
 						display: none !important;
+					}
+					@media screen and (max-width: 365px) {
+						padding-left: 15px;
 					}
 					a {
 						text-decoration: none;
@@ -249,7 +260,7 @@
 	}
 	.notificationContainer {
 		position: fixed;
-	    width: 40%;
+	    width: 475px;
 	    bottom: 35px;
 	    margin: auto;
 	    left: 0;
@@ -262,6 +273,9 @@
 		-ms-animation: fadein 2s linear; /* Internet Explorer */
 		-o-animation: fadein 2s linear; /* Opera < 12.1 */
 		animation: fadein 2s linear;
+		@media screen and (max-width: 500px) {
+			width: 97% !important;
+		}
 	    .notificationText, .line {
 	    	display: inline-block;
 	    	vertical-align: middle;
@@ -269,6 +283,10 @@
 	    .notificationText {
 	    	position: relative;
 	    	bottom: 7px;
+	    	@media #{$mobile} {
+	    		font-size: 0.65em;
+	    		bottom: 6px;
+	    	}
 	    	.status {
 	    		color: rgba(0,0,0, 0.85);
 	    		text-align: left;
@@ -276,6 +294,9 @@
 			    top: 15px;
 			    font-weight: bold;
 			    margin-top: 5px;
+			    @media #{$mobile} {
+			    	top: 10px;
+			    }
 	    	}
 	    	.text {
 	    		color: rgba(0,0,0, 0.85);
@@ -288,6 +309,9 @@
 		    background: #4FA47D;
 		    border-radius: 5px;
 		    margin-left: 1.5%;
+		    @media #{$mobile} {
+		    	height: 40px;
+		    }
 	    }
 	    .check {
 	    	width: 35px;

@@ -26,6 +26,7 @@ html, body {
 		    left: 50%;
 		    margin-left: -225PX;
 		    padding-top: 30px;
+		    margin-top: 0px;
 		    @media #{$mobile} {
 		    	position: relative;
 		    	left: 0;

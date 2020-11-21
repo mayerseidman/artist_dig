@@ -7,6 +7,9 @@ import dayZeroImage from './images/lineups/day-zero.png';
 import whatImage from './images/lineups/what.png';
 import checkImage from './images/icons/check.png';
 
+import lineupThree from './LineupThree.json';
+const lineups = { "one": lineupThree, "two": lineupThree, "three": lineupThree };
+
 import '../css/app.css';
 import '../css/artist_container.css';
 
@@ -25,31 +28,38 @@ export default class App extends Component {
          };
     }
 
-    selectLineup = () =>  {
-        console.log("SELECTED")
+    selectLineup = (event) =>  {
+        const lineup = event.target.closest("button").getAttribute("lineup");
+        this.setState({ loading: true })
+        setTimeout(() => {
+            this.setState({ artists: lineups[lineup], loading: false })
+        }, 500) 
     }
 
-    submitPhoto = (e) => {
-        const file = this.inputElement.files[0];
-        this.setState({ loading: true, image: URL.createObjectURL(file) })
-        const formData = new FormData();
-        formData.append('myImage', file);
-        formData.append('fileType', "PNG")
-    
+    fetchResults = (formData) => {
         fetch("/api/uploadFile", {
             method: 'POST',
             body: formData
         }).then(response => {
             if (response.status == 200) {
-
                 return response.json()
             } else {
-                this.setState({ loading: false, uploadError: true })
+                this.setState({ loading: false, uploadError: true });
             }
         }).then((value) => {
-            this.setState({ artists: value, loading: false })
+            console.log(value)
+            this.setState({ artists: value, loading: false });
             return value;
         })
+    }
+
+    submitPhoto = (e) => {
+        const file = this.inputElement.files[0];
+        this.setState({ loading: true, image: URL.createObjectURL(file) });
+        const formData = new FormData();
+        formData.append('myImage', file);
+        formData.append('fileType', "PNG")
+        this.fetchResults(formData);
     }
 
     deleteArtist = (artist) => {
@@ -80,7 +90,12 @@ export default class App extends Component {
 
     viewImage = () => {
         this.setState({ showImage: true })
-        window.scrollTo(0, this.myRef.current.offsetTop);
+        console.log(this.myRef.current)
+        requestAnimationFrame(() => {
+            requestAnimationFrame(() => {
+                this.myRef.current?.scrollIntoView({ block: "end", behavior: "smooth" });
+            })
+        })
     }
 
     hideImage = () => {
@@ -115,21 +130,21 @@ export default class App extends Component {
         return (
             <div className="content" id="buttonsContainer">
                 <p className="guideText">Select a lineup to see  how it works</p>
-                <button className="btn primary">
+                <button className="btn primary" lineup="one" onClick={ this.selectLineup.bind(this) }>
                     <img src={ elementsImage } className="img" aria-hidden="true" />
                     <div className="lineupText">
                         <h3>ELEMENTS FESTIVAL</h3>
                         <p>UNITED STATES</p>
                     </div>
                 </button>
-                <button className="btn primary">
+                <button className="btn primary" lineup="two" onClick={ this.selectLineup.bind(this) }>
                     <img src={ dayZeroImage } className="img" aria-hidden="true" />
                     <div className="lineupText">
                         <h3>DAY ZERO</h3>
                         <p>MEXICO</p>
                     </div>
                 </button>
-                <button className="btn primary" onClick={ this.selectLineup.bind(this) }>
+                <button className="btn primary" lineup="three" onClick={ this.selectLineup.bind(this) }>
                     <img src={ whatImage } className="img" aria-hidden="true" />
                     <div className="lineupText">
                         <h3>WHAT THE FESTIVAL</h3>
@@ -184,7 +199,7 @@ export default class App extends Component {
         } else if (this.state.deleteArtist) {
             var texts = ["You deleted an artist. Nice job.", "You deleted an artist. Exhale.", "You deleted an artist. Goodbyes can be hard.", "You deleted an artist. Au revoir."];
             var notificationStatus = (
-                <p className="status">Artist Deleted 👍!</p>
+                <p className="status">Artist Deleted 👋!</p>
             )
             var notificationText = (
                 <p className="text">{ _.sample(texts) }</p>
@@ -222,12 +237,38 @@ export default class App extends Component {
         )
         var notification = this.renderNotification();
         var results = (
-            <div className="resultsContainer">
-                { header }
-                { table }
-                { lineupImage }
-                { notification }
-            </div>
+            <table>
+            <thead>
+            <tr>
+            <th>Your Lineup</th>
+            <th></th>
+            <th></th>
+            <th></th>
+            <th>View Image</th>
+            </tr>
+            </thead>
+            <tbody>
+            {
+                this.state.artists.map(function(artist) {
+          return artist &&
+        
+                    ( <tr>
+                    <td>
+                    {artist}
+                   
+                    </td>
+                    <td>S</td>
+                    <td>S</td>
+                    <td>Y</td>
+                    <td>Edit | Delete</td>
+                    </tr>)
+
+            }.bind(this))
+
+        }
+            </tbody>
+                
+            </table>
         )
         return results;
     }

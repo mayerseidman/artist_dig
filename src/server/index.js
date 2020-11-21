@@ -5,6 +5,7 @@ const app = express();
 const ocrSpaceApi = require('ocr-space-api');
 const bodyParser = require('body-parser');
 const fetch = require('node-fetch');
+const fs = require('fs');
 require('dotenv').config();
 const _ = require('underscore')
 
@@ -31,6 +32,19 @@ var morgan = require('morgan');
 app.use(morgan('combined'));
 
 var multer = require('multer');
+
+
+// CLEAR UPLOADS OF IMAGES
+fs.readdir('uploads', (err, files) => {
+	console.log(__dirname)
+  if (err) throw err;
+
+  for (const file of files) {
+    fs.unlink(path.join('uploads', file), err => {
+      if (err) throw err;
+    });
+  }
+});
 
 // UPLOAD PLUGIN  //
 var storage = multer.diskStorage({
@@ -84,16 +98,19 @@ function check (artist) {
 }
 
 
-// BEFORE PUSHING TO PRODUCTION pass REQ into this function and then access file and hostname off of it... *****************************************
+// WHEN IN DEVELOPMENT USE NGROK URL INSTEAD OF REQ.FILE.HOST...
 // SCRAPE IMAGE FOR ARTISTS, TURN STRING INTO ARRAY, SEND TO FRONT END //
 function uploadImage(req) {
+	console.log(req)
+	return 
 	return new Promise(function(resolve, reject) {
 		unirest.post('https://api.ocr.space/parse/image')
 		.headers({
 			'apikey': process.env.OCR_API_KEY
 		})
 		.field('language', 'eng')
-		.field('url', req.hostname + req.file.path) 
+		// DEVELOPMENT .field('url', 'https://1dbfb987fa12.ngrok.io/' + file.path) 
+		.field('url', req.file.host + req.file.path) 
 		.end(function (res) {
 			var rawBody = JSON.parse(res.raw_body);
 			if (rawBody.IsErroredOnProcessing) return reject(rawBody);
