@@ -36,7 +36,7 @@ const dir = path.join(__dirname, '../..', 'uploads')
 app.use('/uploads', express.static(dir))
 
 console.log(process.env.NODE_ENV)
-if (process.env.NODE_ENV) {
+if (process.env.NODE_ENV == 'development') {
 	var uploadsDIR = "uploads";
 	console.log(process.env.NODE_ENV)
 } else {
