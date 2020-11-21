@@ -35,14 +35,22 @@ var multer = require('multer');
 const dir = path.join(__dirname, '../..', 'uploads')
 app.use('/uploads', express.static(dir))
 
+console.log(process.env.NODE_ENV)
+if (process.env.NODE_ENV) {
+	var uploadsDIR = "uploads";
+	console.log(process.env.NODE_ENV)
+} else {
+	var uploadsDIR = '../../uploads';
+	console.log("NADA")
+}
 
-// CLEAR UPLOADS OF IMAGES
-fs.readdir(dir, (err, files) => {
+//CLEAR UPLOADS OF IMAGES
+fs.readdir(uploadsDIR, (err, files) => {
 	console.log(__dirname)
   if (err) throw err;
 
   for (const file of files) {
-    fs.unlink(path.join(dir, file), err => {
+    fs.unlink(path.join(uploadsDIR, file), err => {
       if (err) throw err;
     });
   }
