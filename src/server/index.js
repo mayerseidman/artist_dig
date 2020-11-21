@@ -75,8 +75,7 @@ app.use('/uploads', express.static(dir))
 // UPLOAD LINEUP FOR SCRAPING //
 app.post('/api/uploadFile', upload.single("myImage"), async (req, res) => {
 	try {
-		console.log(req.file, "HOSTNAME:", req.hostname)
-		const parsedResult = await uploadImage(req);
+		const parsedResult = await uploadImage(req, req.file);
 		res.json(parsedResult);
 	} catch(err) {
 		console.log(err)
@@ -98,11 +97,10 @@ function check (artist) {
 }
 
 
-// WHEN IN DEVELOPMENT USE NGROK URL INSTEAD OF REQ.FILE.HOST...
+// WHEN IN DEVELOPMENT PASS "FILE" INTO THIS FUNCTION, INSTEAD OF "REQ"--use .host...
 // SCRAPE IMAGE FOR ARTISTS, TURN STRING INTO ARRAY, SEND TO FRONT END //
-function uploadImage(req) {
-	console.log(req)
-	return 
+function uploadImage(req, file) {
+	console.log(req.hostname)
 	return new Promise(function(resolve, reject) {
 		unirest.post('https://api.ocr.space/parse/image')
 		.headers({
@@ -110,7 +108,7 @@ function uploadImage(req) {
 		})
 		.field('language', 'eng')
 		// DEVELOPMENT .field('url', 'https://1dbfb987fa12.ngrok.io/' + file.path) 
-		.field('url', req.file.host + req.file.path) 
+		.field('url', req.hostname + file.path) 
 		.end(function (res) {
 			var rawBody = JSON.parse(res.raw_body);
 			if (rawBody.IsErroredOnProcessing) return reject(rawBody);
