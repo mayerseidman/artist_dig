@@ -1,34 +1,215 @@
 @import "../scss/variables";
 
+
+.ourTable {
+	@media #{$mobile} {
+		margin: 5px auto;
+	}
+	.emptyText {
+		text-align: left;
+		margin-top: 0px;
+	}
+	.artistName, .emptyText {
+		font-size: 18px;
+		opacity: 0.85;
+	}
+	.ourRow {
+		display: table-row;
+		@media #{$mobile} {
+			display: inherit;
+			marign-bottom: 5px;
+		}
+		/*.ourCell {
+			display: table-cell;
+			padding: 10px;
+		}*/
+		.editLink, .deleteLink {
+			margin-right: 15px;
+			@media #{$mobile} {
+				font-size: 0.8em;
+			}
+		}
+	}
+	&.smallTable {
+	    @media screen and (min-width: 489px) {
+			width: 60%;
+		    display: inline-table;
+		    vertical-align: top;
+	    }
+	}
+}
+
+
+
+.artistsTable {
+	width: 75%;
+	margin: auto;
+	border-spacing: 15px;
+	.title {
+		text-align: left;
+		font-size: 32px;
+	    font-weight: bold;
+	}
+	.controls {
+		border-bottom: 1px solid #8683ab;
+		opacity: 0.85;
+	}
+	.viewImageLink {
+		font-weight: normal;
+		padding-right: 10px;
+	}
+	.cell {
+		input {
+			border-radius: 5px;
+		    border: 1px solid #000;
+		    height: 30px;
+		    color: #555;
+		    padding-left: 5px;
+		    box-shadow: 0 0.16rem 0.36rem 0 rgba(0, 0, 0, 0.13), 0 0.03rem 0.09rem 0 rgba(0, 0, 0, 0.11);
+		}
+
+		.artistLink {
+			color: inherit;
+			img {
+				display: inline-block;
+				vertical-align: top;
+				width: 35px;
+				@media #{$mobile} {
+					width: 25px;
+				}
+				&:hover {
+					opacity: 0.7;          
+				}
+			}
+		}
+
+		&.artistName {
+			text-align: left;
+			padding-left: 0px;
+			text-overflow: ellipsis;
+		    overflow: hidden;
+		    white-space: nowrap;
+		    width: 250px;
+		    text-align: left;
+		    font-weight: bold;
+		    font-weight: 18px;
+		    @media screen and (max-width: 550px) {
+		    	width: 125px;
+		    	padding-left: 0px !important;
+		    }
+		    @media screen and (min-width: 489px) {
+		    	text-transform: uppercase;
+		    	max-width: 125px;
+		    }
+		    a {
+		    	margin-left: 10px;
+		    }
+		}
+		&.editContainer {
+			opacity: 0.85;
+			text-align: center;
+			a {
+				margin-right: 10px;
+				position: relative;
+				font-weight: normal;
+				cursor: pointer;
+				border-bottom: solid 2.5px transparent;
+				&:hover {
+					border-bottom: 2px solid #000;
+				}
+			}
+			&.hideOnMobile {
+				display: none !important;
+				@media screen and (min-width: 489px) {
+					display: table-cell !important;
+				}
+			}
+		}
+		&.soundcloud {
+			img {
+				width: 60px;
+			}
+			@media #{$mobile} {
+				img {
+					width: 45px;
+				}
+			}
+		}
+		&.mobileActions {
+			display: table-cell;
+			position: relative;
+			bottom: 4px;
+			font-size: 20px;
+			text-decoration: none;
+			padding-left: 28px;
+			@media screen and (min-width: 489px) {
+				display: none !important;
+			}
+			@media screen and (max-width: 365px) {
+				padding-left: 15px;
+			}
+			a {
+				text-decoration: none;
+			}
+			.popoverContent {
+				opacity: 0;
+				visibility: hidden;
+				position: absolute;
+				right: 15px;
+				transform: translate(0, 10px);
+				background-color: #eee;
+				padding: 0.5rem;
+				box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.26);
+				box-shadow: 0 0.16rem 0.36rem 0 rgba(0, 0, 0, 0.13), 0 0.03rem 0.09rem 0 rgba(0, 0, 0, 0.11);
+				width: auto;
+				border-radius: 5px;
+				.popoverMessage {
+					margin: 0px;
+					text-align: center;
+					a {
+						display: block;
+						text-align: left;
+					}
+				}
+			}
+			.popoverContent:before {
+				position: absolute;
+				z-index: -1;
+				right: -15%;
+				top: 8px;
+				border-style: solid;
+				border-width: 0 10px 10px 10px;
+				border-color: transparent transparent #eee transparent;
+				transition-duration: 0.3s;
+				transition-property: transform;
+			}
+			&:hover .popoverContent {
+				z-index: 10;
+				opacity: 1;
+				visibility: visible;
+				transform: translate(0, -20px);
+				transition: all 0.5s cubic-bezier(0.75, -0.02, 0.2, 0.97);
+			}
+		}
+		.hidden {
+			@media #{$mobile} {
+				visibility: hidden;
+			}
+		}
+	}
+}
+
 .resultsBackground {
 	&.longer {
 		height: 100vh;
 	}
 	.resultsContainer {
-		width: 75%;
-		margin: auto;
-		padding-bottom: 20px;
-		overflow: auto;
-		@media #{$mobile} {
-			width: 90%;
-		}
 		.header {
-			font-size: 32px;
-		    margin-bottom: 0px;
-		    font-weight: bold;
-		    border-bottom: 1px solid #8683ab;
-		    opacity: 0.85;
-		    @media #{$mobile} {
-		    	padding-bottom: 3px;
-		    	margin-top: 25px;
-		    }
 		    a {
 		    	float: right;
 	    	    font-size: 1rem;
 	    	    font-weight: normal;
 	    	    vertical-align: bottom;
-	    	    position: relative;
-	    	    top: 15px;
 	    	    cursor: pointer;
 	    	    @media #{$mobile} {
 	    	    	font-size: 0.8rem;
@@ -69,193 +250,6 @@
 		    to { bottom: 35px; }
 		    0% { opacity: 0; }
 		    50% { opacity: 1; }
-		}
-		.ourTable {
-			width: 100%;
-			margin: 20px auto;
-			text-align: center;
-			display: table;
-			@media #{$mobile} {
-				margin: 5px auto;
-			}
-			.emptyText {
-				text-align: left;
-				margin-top: 0px;
-			}
-			.artistName, .emptyText {
-				font-size: 18px;
-				opacity: 0.85;
-			}
-			.ourRow {
-				display: table-row;
-				@media #{$mobile} {
-					display: inherit;
-					marign-bottom: 5px;
-				}
-				.ourCell {
-					display: table-cell;
-					padding: 10px;
-					@media #{$mobile} {
-						padding-left: 12px !important;
-						vertical-align: middle;
-						display: inline-block;
-					}
-					@media screen and (max-width: 365px) {
-						padding-left: 7px !important;	
-					}
-
-					input {
-						border-radius: 5px;
-					    border: 1px solid #000;
-					    height: 30px;
-					    color: #555;
-					    padding-left: 5px;
-					    box-shadow: 0 0.16rem 0.36rem 0 rgba(0, 0, 0, 0.13), 0 0.03rem 0.09rem 0 rgba(0, 0, 0, 0.11);
-					}
-
-					.artistLink {
-						color: inherit;
-						img {
-							display: inline-block;
-							vertical-align: top;
-							width: 35px;
-							@media #{$mobile} {
-								width: 25px;
-							}
-							&:hover {
-								opacity: 0.7;          
-							}
-						}
-					}
-
-					&.artistName {
-						text-align: left;
-						padding-left: 0px;
-						text-overflow: ellipsis;
-					    overflow: hidden;
-					    white-space: nowrap;
-					    width: 250px;
-					    text-align: left;
-					    font-weight: bold;
-					    font-weight: 18px;
-					    @media screen and (max-width: 550px) {
-					    	width: 125px;
-					    	padding-left: 0px !important;
-					    }
-					    @media screen and (min-width: 489px) {
-					    	text-transform: uppercase;
-					    	max-width: 125px;
-					    }
-					    a {
-					    	margin-left: 10px;
-					    }
-					}
-					&.editContainer {
-						opacity: 0.85;
-						overflow: inherit;
-						a {
-							position: relative;
-							font-weight: normal;
-							cursor: pointer;
-							border-bottom: solid 2.5px transparent;
-							&:hover {
-								border-bottom: 2px solid #000;
-							}
-						}
-						&.hideOnMobile {
-							display: none !important;
-							@media screen and (min-width: 489px) {
-								display: table-cell !important;
-							}
-						}
-					}
-					&.soundcloud {
-						img {
-							width: 60px;
-						}
-						@media #{$mobile} {
-							img {
-								width: 45px;
-							}
-						}
-					}
-				}
-				.editLink, .deleteLink {
-					margin-right: 15px;
-					@media #{$mobile} {
-						font-size: 0.8em;
-					}
-				}
-
-				.mobileActions {
-					display: table-cell;
-					position: relative;
-					bottom: 4px;
-					font-size: 20px;
-					text-decoration: none;
-					padding-left: 28px;
-					@media screen and (min-width: 489px) {
-						display: none !important;
-					}
-					@media screen and (max-width: 365px) {
-						padding-left: 15px;
-					}
-					a {
-						text-decoration: none;
-					}
-					.popoverContent {
-						opacity: 0;
-						visibility: hidden;
-						position: absolute;
-						right: 15px;
-						transform: translate(0, 10px);
-						background-color: #eee;
-						padding: 0.5rem;
-						box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.26);
-						box-shadow: 0 0.16rem 0.36rem 0 rgba(0, 0, 0, 0.13), 0 0.03rem 0.09rem 0 rgba(0, 0, 0, 0.11);
-						width: auto;
-						border-radius: 5px;
-						.popoverMessage {
-							margin: 0px;
-							text-align: center;
-							a {
-								display: block;
-								text-align: left;
-							}
-						}
-					}
-					.popoverContent:before {
-						position: absolute;
-						z-index: -1;
-						right: -15%;
-						top: 8px;
-						border-style: solid;
-						border-width: 0 10px 10px 10px;
-						border-color: transparent transparent #eee transparent;
-						transition-duration: 0.3s;
-						transition-property: transform;
-					}
-					&:hover .popoverContent {
-						z-index: 10;
-						opacity: 1;
-						visibility: visible;
-						transform: translate(0, -20px);
-						transition: all 0.5s cubic-bezier(0.75, -0.02, 0.2, 0.97);
-					}
-				}
-				.hidden {
-					@media #{$mobile} {
-						visibility: hidden;
-					}
-				}
-			}
-			&.smallTable {
-			    @media screen and (min-width: 489px) {
-					width: 60%;
-				    display: inline-table;
-				    vertical-align: top;
-			    }
-			}
 		}
 	}
 	.notificationContainer {

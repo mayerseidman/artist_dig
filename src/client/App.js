@@ -7,8 +7,11 @@ import dayZeroImage from './images/lineups/day-zero.png';
 import whatImage from './images/lineups/what.png';
 import checkImage from './images/icons/check.png';
 
+import lineupOne from './LineupOne.json';
+import lineupTwo from './LineupTwo.json';
 import lineupThree from './LineupThree.json';
-const lineups = { "one": lineupThree, "two": lineupThree, "three": lineupThree };
+
+const lineups = { "one": lineupOne, "two": lineupTwo, "three": lineupThree };
 
 import '../css/app.css';
 import '../css/artist_container.css';
@@ -237,38 +240,23 @@ export default class App extends Component {
         )
         var notification = this.renderNotification();
         var results = (
-            <table>
-            <thead>
-            <tr>
-            <th>Your Lineup</th>
-            <th></th>
-            <th></th>
-            <th></th>
-            <th>View Image</th>
-            </tr>
-            </thead>
-            <tbody>
-            {
-                this.state.artists.map(function(artist) {
-          return artist &&
-        
-                    ( <tr>
-                    <td>
-                    {artist}
-                   
-                    </td>
-                    <td>S</td>
-                    <td>S</td>
-                    <td>Y</td>
-                    <td>Edit | Delete</td>
-                    </tr>)
-
-            }.bind(this))
-
-        }
-            </tbody>
-                
-            </table>
+            <div>
+                <table className="artistsTable">
+                    <thead>
+                        <tr className="controls">
+                            <th className="title">YOUR LINEUP</th>
+                            <th></th>
+                            <th></th>
+                            <th></th>
+                            <th className="viewImageLink">{ link }</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        { this.renderArtists() }
+                    </tbody>
+                </table>
+                { lineupImage }
+            </div>
         )
         return results;
     }

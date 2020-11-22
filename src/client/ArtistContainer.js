@@ -30,11 +30,11 @@ export default class App extends Component {
     renderEditField = () => {
         var artist = this.state.artistName;
         var editField = (
-            <div>
+            <td>
                 <input type="text" className="form-control" ref="artistName" onChange={ this.handleChange.bind(this) } 
                     value={ this.state.artistName } />
                 <a onClick={ this.saveArtist.bind(this) }>Save</a>
-            </div>
+            </td>
         )
         return editField;
     }
@@ -42,14 +42,14 @@ export default class App extends Component {
         var artist = this.props.artistName;
         if (this.state.editArtist) {
             var artistField = (
-                <div className="ourCell artistName editContainer editMobile">
+                <td className="artistField">
                     <input type="text" className="form-control" ref="artistName" onChange={ this.handleChange.bind(this) } 
                         value={ this.state.artistName } />
                     <a onClick={ this.saveArtist.bind(this) }>Save</a>
-                </div>
+                </td>
             )
         } else {
-            var artistField = <div className="ourCell artistName">{ artist}</div>
+            var artistField = <td className="">{ artist}</td>
         }
         return artistField;
     }
@@ -60,11 +60,11 @@ export default class App extends Component {
             var className = "hidden";
         }
         var soundcloudField = (
-            <div className={ "ourCell soundcloud " + className }>
+            <td className={ "cell soundcloud " + className }>
                 <a className="artistLink" href={ soundcloudURL } target="_blank">
                     <img src={ SoundcloudImage } />
                 </a>
-            </div>
+            </td>
         )
         return soundcloudField;
     }
@@ -75,11 +75,11 @@ export default class App extends Component {
             var className = "hidden";
         }
         var spotifyField = (
-            <div className={ "ourCell serviceField " + className }>
+            <td className={ "cell serviceField " + className }>
                 <a className="artistLink" href={ spotifyURL } target="_blank">
                     <img src={ SpotifyImage } />
                 </a>
-            </div>
+            </td>
         )
         return spotifyField;
     }
@@ -90,11 +90,11 @@ export default class App extends Component {
             var className = "hidden";
         }
         var youtubeField = (
-            <div className={ "ourCell serviceField " + className }>
+            <td className={ "cell serviceField " + className }>
                 <a className="artistLink" href={ youtubeURL } target="_blank">
                     <img src={ YoutubeImage } />
                 </a>
-            </div>
+            </td>
         )
         return youtubeField;
     }
@@ -103,10 +103,10 @@ export default class App extends Component {
         var editLink = (<a className="editLink" onClick={ this.openEditArtist.bind(this, artist) }>EDIT</a>)
         var deleteLink = (<a className="deleteLink" onClick={ this.deleteArtist.bind(this, artist) }>DELETE</a>)
         var actionsField = (
-            <div className="ourCell editContainer hideOnMobile">
+            <td className="cell editContainer hideOnMobile">
                 { editLink }
                 { deleteLink }
-            </div>
+            </td>
         )
         return actionsField;
     }
@@ -118,7 +118,7 @@ export default class App extends Component {
         var editLink = (<a className="editLink" onClick={ this.openEditArtist.bind(this, artist) }>EDIT</a>)
         var deleteLink = (<a className="deleteLink" onClick={ this.deleteArtist.bind(this, artist) }>DELETE</a>)
         var mobileActionsField = (
-            <div className={ "mobileActions " + pullLeft }>
+            <td className={ "cell mobileActions " + pullLeft }>
                 <a href="#">...</a>
                 <div class="popoverContent">
                     <p class="popoverMessage">
@@ -126,20 +126,21 @@ export default class App extends Component {
                         { deleteLink }
                     </p>
                 </div>
-            </div>
+            </td>
         )
         return mobileActionsField;
     }
+
     renderArtist() {
         return (
-            <div className="ourRow">
+            <tr>
                 { this.renderArtistField() }
                 { this.renderSoundcloudField() }
                 { this.renderSpotifyField() }
                 { this.renderYouTubeField() }
                 { this.renderActions() }
                 { this.renderMobileActions() }
-            </div>
+            </tr>
         )
     }
     componentDidMount() {
