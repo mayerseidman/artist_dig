@@ -35,7 +35,7 @@ var multer = require('multer');
 const dir = path.join(__dirname, '../..', 'uploads')
 app.use('/uploads', express.static(dir))
 
-console.log(process.env.NODE_ENV)
+console.log(process.env.NODE_ENV, dir)
 if (process.env.NODE_ENV == 'production') {
 	var uploadsDIR = '../../uploads';
 	console.log("production")
