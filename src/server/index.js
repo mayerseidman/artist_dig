@@ -36,24 +36,24 @@ const dir = path.join(__dirname, '../..', 'uploads')
 app.use('/uploads', express.static(dir))
 
 console.log(process.env.NODE_ENV)
-if (process.env.NODE_ENV == 'development') {
-	var uploadsDIR = "uploads";
-	console.log(process.env.NODE_ENV)
-} else {
+if (process.env.NODE_ENV == 'production') {
 	var uploadsDIR = '../../uploads';
-	console.log("NADA")
+	console.log("production")
+} else {
+	var uploadsDIR = "uploads";
+	console.log("development")
 }
 
 //CLEAR UPLOADS OF IMAGES
 fs.readdir(uploadsDIR, (err, files) => {
 	console.log(__dirname)
-  if (err) throw err;
+	if (err) throw err;
 
-  for (const file of files) {
-    fs.unlink(path.join(uploadsDIR, file), err => {
-      if (err) throw err;
-    });
-  }
+	for (const file of files) {
+		fs.unlink(path.join(uploadsDIR, file), err => {
+			if (err) throw err;
+		});
+	}
 });
 
 // UPLOAD PLUGIN  //
@@ -115,7 +115,7 @@ function uploadImage(req, file) {
 		})
 		.field('language', 'eng')
 		// DEVELOPMENT .field('url', 'https://1dbfb987fa12.ngrok.io/' + file.path) 
-		.field('url', req.hostname + file.path) 
+		.field('url', "https://deb882d63996.ngrok.io/" + file.path) 
 		.end(function (res) {
 			var rawBody = JSON.parse(res.raw_body);
 			if (rawBody.IsErroredOnProcessing) return reject(rawBody);
