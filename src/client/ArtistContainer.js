@@ -27,29 +27,29 @@ export default class App extends Component {
     deleteArtist = (artist) => {
         this.props.deleteArtist(artist);
     }
-    renderEditField = () => {
-        var artist = this.state.artistName;
-        var editField = (
-            <td>
-                <input type="text" className="form-control" ref="artistName" onChange={ this.handleChange.bind(this) } 
-                    value={ this.state.artistName } />
-                <a onClick={ this.saveArtist.bind(this) }>Save</a>
-            </td>
-        )
-        return editField;
-    }
+    // renderEditField = () => {
+    //     var artist = this.state.artistName;
+    //     var editField = (
+    //         <td>
+    //             <input type="text" className="form-control" ref="artistName" onChange={ this.handleChange.bind(this) } 
+    //                 value={ this.state.artistName } />
+    //             <a onClick={ this.saveArtist.bind(this) }>Save</a>
+    //         </td>
+    //     )
+    //     return editField;
+    // }
     renderArtistField = () => {
         var artist = this.props.artistName;
         if (this.state.editArtist) {
             var artistField = (
-                <td className="artistField">
+                <td className="cell artistField">
                     <input type="text" className="form-control" ref="artistName" onChange={ this.handleChange.bind(this) } 
-                        value={ this.state.artistName } />
+                        value={ this.state.artistName } style={{width: `${(this.state.artistName.length + 1) * 8}px`}} />
                     <a onClick={ this.saveArtist.bind(this) }>Save</a>
                 </td>
             )
         } else {
-            var artistField = <td className="">{ artist}</td>
+            var artistField = <td className="cell artistName">{ artist}</td>
         }
         return artistField;
     }

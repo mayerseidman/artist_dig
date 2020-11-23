@@ -19,10 +19,6 @@
 			display: inherit;
 			marign-bottom: 5px;
 		}
-		/*.ourCell {
-			display: table-cell;
-			padding: 10px;
-		}*/
 		.editLink, .deleteLink {
 			margin-right: 15px;
 			@media #{$mobile} {
@@ -30,12 +26,20 @@
 			}
 		}
 	}
-	&.smallTable {
-	    @media screen and (min-width: 489px) {
-			width: 60%;
-		    display: inline-table;
-		    vertical-align: top;
-	    }
+}
+
+.artistField, .artistName {
+	display: flex;
+	align-items: center;
+	padding-right: 200px;
+	input {
+		padding-right: 5px;
+		max-width: 200px;
+	}
+
+	a {
+		display: inline-block;
+		margin-left: 10px;
 	}
 }
 
@@ -57,6 +61,7 @@
 	.viewImageLink {
 		font-weight: normal;
 		padding-right: 10px;
+		cursor: pointer;
 	}
 	.cell {
 		input {
@@ -84,13 +89,10 @@
 		}
 
 		&.artistName {
-			text-align: left;
-			padding-left: 0px;
 			text-overflow: ellipsis;
 		    overflow: hidden;
 		    white-space: nowrap;
-		    width: 250px;
-		    text-align: left;
+		    width: 25px;
 		    font-weight: bold;
 		    font-weight: 18px;
 		    @media screen and (max-width: 550px) {
@@ -197,6 +199,44 @@
 			}
 		}
 	}
+	&.smallTable {
+	    @media screen and (min-width: 489px) {
+			width: 57%;
+		    display: inline-table;
+		    vertical-align: top;
+		    vertical-align: top;
+		  	padding-left: 50px;
+	    }
+	}
+}
+
+.viewImage {
+	display: none;
+    -webkit-animation: fadein 2s linear; 
+	-moz-animation: fadein 2s linear; 
+	-ms-animation: fadein 2s linear;
+	-o-animation: fadein 2s linear; 
+	animation: fadein 2s linear;
+	paddinng-bottom: 25px;
+    @media screen and (min-width: 1100px) {
+		width: 35%;
+	    margin-left: 5%;
+	    margin-top: 25px;
+    }
+    @media screen and (max-width: 1099px){
+    	width: 90%;
+    	margin: auto;
+    	margin-top: 5px;
+    }
+    &.show {
+    	display: block;
+    }
+}
+@keyframes fadein {
+    from { bottom: 0px; }
+    to { bottom: 35px; }
+    0% { opacity: 0; }
+    50% { opacity: 1; }
 }
 
 .resultsBackground {
@@ -223,33 +263,6 @@
 	    	    	}
 	    	    }
 		    }
-		}
-		.viewImage {
-			display: none;
-		    -webkit-animation: fadein 2s linear; 
-			-moz-animation: fadein 2s linear; 
-			-ms-animation: fadein 2s linear;
-			-o-animation: fadein 2s linear; 
-			animation: fadein 2s linear;
-		    @media screen and (min-width: 1100px) {
-	    		width: 35%;
-	    	    margin-left: 5%;
-	    	    margin-top: 15px;
-		    }
-		    @media screen and (max-width: 1099px){
-		    	width: 100%;
-		    	margin-left: 0%;
-		    	margin-top: 5px;
-		    }
-		    &.show {
-		    	display: inline-block;
-		    }
-		}
-		@keyframes fadein {
-		    from { bottom: 0px; }
-		    to { bottom: 35px; }
-		    0% { opacity: 0; }
-		    50% { opacity: 1; }
 		}
 	}
 	.notificationContainer {

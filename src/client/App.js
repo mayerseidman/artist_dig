@@ -36,7 +36,7 @@ export default class App extends Component {
         this.setState({ loading: true })
         setTimeout(() => {
             this.setState({ artists: lineups[lineup], loading: false })
-        }, 500) 
+        }, 3000) 
     }
 
     fetchResults = (formData) => {
@@ -96,7 +96,7 @@ export default class App extends Component {
         console.log(this.myRef.current)
         requestAnimationFrame(() => {
             requestAnimationFrame(() => {
-                this.myRef.current?.scrollIntoView({ block: "end", behavior: "smooth" });
+                this.myRef.current?.scrollIntoView({ behavior: "smooth" });
             })
         })
     }
@@ -241,7 +241,7 @@ export default class App extends Component {
         var notification = this.renderNotification();
         var results = (
             <div>
-                <table className="artistsTable">
+                <table className={ "artistsTable " + tableClass }>
                     <thead>
                         <tr className="controls">
                             <th className="title">YOUR LINEUP</th>
@@ -255,6 +255,7 @@ export default class App extends Component {
                         { this.renderArtists() }
                     </tbody>
                 </table>
+                { notification }
                 { lineupImage }
             </div>
         )
