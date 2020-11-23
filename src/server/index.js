@@ -112,7 +112,7 @@ function check (artist) {
 // WHEN IN DEVELOPMENT PASS "FILE" INTO THIS FUNCTION, INSTEAD OF "REQ"--use .host...
 // SCRAPE IMAGE FOR ARTISTS, TURN STRING INTO ARRAY, SEND TO FRONT END //
 function uploadImage(req, file) {
-	console.log(req.hostname)
+	console.log(req.hostname, file.path)
 	return new Promise(function(resolve, reject) {
 		unirest.post('https://api.ocr.space/parse/image')
 		.headers({
