@@ -1,7 +1,7 @@
 const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const CleanWebpackPlugin = require('clean-webpack-plugin');
-
+const MakeDirWebpackPlugin = require('make-dir-webpack-plugin');
 const outputDirectory = 'dist';
 
 module.exports = {
@@ -44,6 +44,7 @@ module.exports = {
     new HtmlWebpackPlugin({
       template: './public/index.html',
       favicon: './public/circle.png'
-    })
+    }),
+    new MakeDirWebpackPlugin({ dirs: [ { path: "./dist/uploads" } ] })
   ]
 };
