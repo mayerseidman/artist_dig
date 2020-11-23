@@ -37,7 +37,7 @@ const dir = path.join(__dirname, '../..', 'uploads')
 app.use('/uploads', express.static(dir))
 
 var uploadsDIR = "uploads";
-fs.mkdir(uploadsDIR, "0777")
+fs.mkdir(uploadsDIR, "0777", console.log)
 
 //CLEAR UPLOADS OF IMAGES
 fs.readdir(uploadsDIR, (err, files) => {
