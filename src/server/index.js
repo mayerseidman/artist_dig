@@ -37,7 +37,6 @@ const dir = path.join(__dirname, '../..', 'uploads')
 app.use('/uploads', express.static(dir))
 
 var uploadsDIR = "uploads";
-fs.mkdir(uploadsDIR, "0777", console.log)
 
 //CLEAR UPLOADS OF IMAGES
 fs.readdir(uploadsDIR, (err, files) => {
@@ -110,7 +109,7 @@ function uploadImage(req, file) {
 		})
 		.field('language', 'eng')
 		// DEVELOPMENT .field('url', 'https://1dbfb987fa12.ngrok.io/' + file.path) 
-		.field('url', req.hostname + file.path) 
+		.field('url', "https://b75032bfabbf.ngrok.io/" + file.path) 
 		.end(function (res) {
 			var rawBody = JSON.parse(res.raw_body);
 			if (rawBody.IsErroredOnProcessing) return reject(rawBody);
