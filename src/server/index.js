@@ -40,9 +40,10 @@ if (process.env.NODE_ENV == 'production') {
 	var uploadsDIR = '../../uploads';
 	console.log("production", process.cwd())
 } else {
-	var uploadsDIR = "uploads";
 	console.log("development")
 }
+
+var uploadsDIR = "uploads";
 
 //CLEAR UPLOADS OF IMAGES
 fs.readdir(uploadsDIR, (err, files) => {
