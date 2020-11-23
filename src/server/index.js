@@ -9,6 +9,7 @@ const fs = require('fs');
 require('dotenv').config();
 const _ = require('underscore')
 
+
 app.listen(process.env.PORT || 8080, () => console.log(`Listening on port ${process.env.PORT || 8080}!`));
 
 const path = require('path');
@@ -44,6 +45,15 @@ if (process.env.NODE_ENV == 'production') {
 }
 
 var uploadsDIR = "uploads";
+
+fs.readdir(__dirname, (err, files) => {
+	console.log(__dirname)
+	if (err) throw err;
+
+	for (const file of files) {
+		console.log(file)
+	}
+});
 
 //CLEAR UPLOADS OF IMAGES
 fs.readdir(uploadsDIR, (err, files) => {
