@@ -45,6 +45,6 @@ module.exports = {
       template: './public/index.html',
       favicon: './public/circle.png'
     }),
-    new MakeDirWebpackPlugin({ dirs: [ { path: path.join(__dirname, outputDirectory, "uploads") } ] })
+    new MakeDirWebpackPlugin({ dirs: [ { path: path.join(__dirname, "uploads") } ] })
   ]
 };
