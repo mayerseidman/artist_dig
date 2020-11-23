@@ -109,7 +109,7 @@ function uploadImage(req, file) {
 		})
 		.field('language', 'eng')
 		// DEVELOPMENT .field('url', 'https://1dbfb987fa12.ngrok.io/' + file.path) 
-		.field('url', req.hostname + file.path) 
+		.field('url', req.hostname + "/" + file.path) 
 		.end(function (res) {
 			var rawBody = JSON.parse(res.raw_body);
 			if (rawBody.IsErroredOnProcessing) return reject(rawBody);
