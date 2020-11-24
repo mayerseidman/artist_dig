@@ -35,7 +35,7 @@ export default class App extends Component {
         const lineup = event.target.closest("button").getAttribute("lineup");
         this.setState({ loading: true })
         setTimeout(() => {
-            this.setState({ artists: lineups[lineup], loading: false })
+            this.setState({ artists: lineups[lineup], loading: false, lineup: lineup })
         }, 3000) 
     }
 
@@ -50,7 +50,6 @@ export default class App extends Component {
                 this.setState({ loading: false, uploadError: true });
             }
         }).then((value) => {
-            console.log(value)
             this.setState({ artists: value, loading: false });
             return value;
         })
@@ -93,7 +92,6 @@ export default class App extends Component {
 
     viewImage = () => {
         this.setState({ showImage: true })
-        console.log(this.myRef.current)
         requestAnimationFrame(() => {
             requestAnimationFrame(() => {
                 this.myRef.current?.scrollIntoView({ behavior: "smooth" });
@@ -224,63 +222,95 @@ export default class App extends Component {
         return notificationContainer;
     }
     renderLineup = () => {
+        var artists = this.state.artists;
         if (this.state.showImage) {
-            var link = <a onClick={ this.hideImage }>HIDE IMAGE</a>
+            var link = <a className="toggleLink" onClick={ this.hideImage }>HIDE IMAGE</a>
             var visible = "show";
-            var tableClass = "smallTable";
+            var inlineClass = "inline";
         } else {
-            var link = <a onClick={ this.viewImage }>VIEW IMAGE</a>
+            if (artists && artists.length > 0) {
+                var link = <a className="toggleLink" onClick={ this.viewImage }>VIEW IMAGE</a>
+            }
         }
-        var lineupImage = <img className={ "viewImage " + visible } src={ this.state.image } ref={ this.myRef } />
-        var header = <p className="header">YOUR LINEUP{ link }</p>
-        var table = (
-            <div className={ "ourTable " + tableClass }>
-                { this.renderArtists() }
-            </div> 
-        )
+        if (this.state.lineup == "one") {
+            var lineupImage = <img className={ "viewImage regular " + visible } src={ elementsImage } />
+            var lineupImageMobile = <img className={ "viewImage mobile " + visible } src={ elementsImage } ref={ this.myRef } />
+        } else if (this.state.lineup == "two") {
+            var lineupImage = <img className={ "viewImage regular " + visible } src={ dayZeroImage } />
+            var lineupImageMobile = <img className={ "viewImage mobile " + visible } src={ dayZeroImage } ref={ this.myRef } />
+        } else if (this.state.lineup == "three") {
+            var lineupImage = <img className={ "viewImage regular " + visible } src={ whatImage } />
+            var lineupImageMobile = <img className={ "viewImage mobile " + visible } src={ whatImage } ref={ this.myRef } />
+        }  else {
+            var lineupImage = <img className={ "viewImage regular " + visible } src={ this.state.image } ref={ this.myRef } />
+        }
         var notification = this.renderNotification();
+        // var results = (
+        //     <div>
+        //          <table className="artistsTable topLine">
+        //              <thead>
+        //                  <tr className="controls">
+        //                      <th className="title">YOUR LINEUP</th>
+        //                      <th></th>
+        //                      <th className="viewImageLink">{ link }</th>
+        //                  </tr>
+        //              </thead>
+        //          </table>
+        //         <table className="artistsTable ">
+        //             <tbody>
+        //                 { this.renderArtists() }
+        //             </tbody>
+        //         </table>
+        //         { notification }
+        //     </div>
+        // )
+
+        if (artists && artists.length > 0) {
+            var artists =  this.renderArtists();
+        } else {
+           var emptyState = <p className="emptyText">Oh, where have all the artists gone 😱?</p>
+        }
+
         var results = (
-            <div>
-                <table className={ "artistsTable " + tableClass }>
-                    <thead>
-                        <tr className="controls">
-                            <th className="title">YOUR LINEUP</th>
-                            <th></th>
-                            <th></th>
-                            <th></th>
-                            <th className="viewImageLink">{ link }</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        { this.renderArtists() }
-                    </tbody>
-                </table>
-                { notification }
+            <div className="tableContainer">
+                <div className={ "table " + inlineClass }>
+                    <div className={ "tbody "  + inlineClass }>
+                        <div class="tr headline">
+                            <div class="td name title">YOUR LINEUP</div>
+                            <div class="td regular"></div>
+                            <div class="td regular"></div>
+                            <div class="td regular"></div>
+                            <div class="td right">{ link }</div>
+                        </div>
+                       { artists }
+                       { emptyState }
+                    </div>
+                </div>
+                { lineupImageMobile }
                 { lineupImage }
+                { notification }
             </div>
         )
         return results;
     }
-    renderEmptyState = () => {
-        var header = (
-            <p className="header">YOUR LINEUP</p>
-        )
-        var emptyState = (
-            <p className="emptyText">Oh, where have all the artists gone 😱?</p>
-        )
-        var content = (
-            <div className="ourTable ">
-                { emptyState }
-            </div>
-        )
-        var results = (
-            <div className="resultsContainer">
-                { header }
-                { content }
-            </div>
-        )
-        return results;
-    }
+    // renderEmptyState = () => {
+    //     var header = (
+    //         <p className="header">YOUR LINEUP</p>
+    //     )
+        
+    //     var content = (
+    //         <div className="ourTable ">
+    //             { emptyState }
+    //         </div>
+    //     )
+    //     var results = (
+    //         <div className="resultsContainer">
+    //             { header }
+    //             { content }
+    //         </div>
+    //     )
+    //     return results;
+    // }
     render() {
         if (!this.state.artists && !this.state.loading) {
             var content = this.renderContent();
@@ -291,18 +321,7 @@ export default class App extends Component {
         } else {
             var artists = this.state.artists;
             if (artists && artists.length > 0) {
-                var trimmedArtists = artists.filter(function() { return true; });
-                var artistsCount = trimmedArtists.filter(function(e){return e}).length;
-                if (artistsCount >= 12) {
-                    var longer = "longer";
-                }
-                var className = longer;
                 var results = this.renderLineup()
-            } else {
-                // RENDER EMPTY STATE
-                if (artists) {
-                   var results = this.renderEmptyState();
-                }
             }
         }
         return (
