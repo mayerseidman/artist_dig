@@ -385,8 +385,8 @@ input {
 }
 
 @keyframes fadeinMobile {
-    from { bottom: 0px; }
-    to { bottom: 55px; }
+    from { bottom: 200px; }
+    to { bottom: 225px; }
     0% { opacity: 0; }
     50% { opacity: 1; }
 }
@@ -409,7 +409,7 @@ input {
 		-o-animation: fadein 2s linear; /* Opera < 12.1 */
 		animation: fadein 2s linear;
 		@media #{$mobile} {
-			bottom: 55px;
+			bottom: 225px;
 		    -webkit-animation: fadeinMobile 2s linear; /* Safari, Chrome and Opera > 12.1 */
 			-moz-animation: fadeinMobile 2s linear; /* Firefox < 16 */
 			-ms-animation: fadeinMobile 2s linear; /* Internet Explorer */
