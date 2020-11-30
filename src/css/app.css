@@ -7,14 +7,17 @@
         url('../fonts/poppins/Poppins-Italic.ttf') format('ttf');
 }
 
+button, a:hover {
+	cursor: url('../client/images/icons/note.png'), pointer !important;
+}
+
 html, body {
+	cursor: url('../client/images/icons/note.png'), pointer;
 	font-family: 'poppins';
 	margin: 0;
 	/*height: 100%;*/
-	background: linear-gradient(180deg, #A4E9F9 0%, #c5aef2 100%) fixed;
-}
-
-.locateArtistsContainer {
+	/*background: linear-gradient(180deg, #A4E9F9 0%, #c5aef2 100%) fixed;*/
+	background: url("../client/images/controller-bg.png") no-repeat center center fixed;
 	&.loadingBackground {
 		height: 100vh !important;
 		animation-name: color;
@@ -38,12 +41,17 @@ html, body {
 	}
 	@keyframes color {
 		0% {
-	    	background: linear-gradient(180deg, #E5F392 0%, #E49E71 100%) fixed;
+	    	/*background: linear-gradient(180deg, #E5F392 0%, #E49E71 100%) fixed;*/
+	    	background: url("../client/images/controller-bg-green.png") no-repeat center center fixed;
 		}
 		50% {
-	    	background: linear-gradient(180deg, #F4F269 0%, #5CB270 100%) fixed;
+	    	/*background: linear-gradient(180deg, #F4F269 0%, #5CB270 100%) fixed;*/
+	    	background: url("../client/images/controller-bg-orange.png") no-repeat center center fixed;
 		}
 	}
+}
+
+.locateArtistsContainer {
 	.viewContainer #container {
 	    display: flex;
 	    -webkit-box-orient: horizontal;

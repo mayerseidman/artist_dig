@@ -1,397 +1,307 @@
 @import "../scss/variables";
 
-.tableContainer {
-	min-height: 350px;
-	.table {
-		display: flex;
-		flex-flow: column nowrap;
-		flex: 1 1 auto;
-		&.inline {
-			@media screen and (min-width: 489px) {
-				display: inline;	
-			}
-		}
-		.tbody {
-			display: block;
-			width: 75%;
-			margin: auto;
-			overflow-y: auto;
-			overflow-x: hidden;
-			@media #{$mobile} {
-				width: 90%;
-			}
+.resultsBackground {
+	.tableContainer {
+		min-height: 350px;
+		.table {
+			display: flex;
+			flex-flow: column nowrap;
+			flex: 1 1 auto;
 			&.inline {
 				@media screen and (min-width: 489px) {
-					display: inline-block;
-					width: 53%;
-					margin-left: 5%;
+					display: inline;	
 				}
 			}
-			.tr {
-				width: 100%;
-				display: flex;
-				flex-flow: row nowrap;
-				&.headline {
-					opacity: 0.85;
-					margin-top: 15px;
-					margin-bottom: 15px;
-					border-bottom: 1px solid #8683ab;
-					.td {
-						padding-bottom: 10px;
+			.tbody {
+				display: block;
+				width: 75%;
+				margin: auto;
+				overflow-y: auto;
+				overflow-x: hidden;
+				margin-bottom: 23px;
+				@media #{$mobile} {
+					width: 90%;
+				}
+				&.inline {
+					@media screen and (min-width: 1099px) {
+						display: inline-block;
+						width: 53%;
+						margin-left: 5%;
+					}
+					@media #{$mobile} {
+						margin-bottom: 0px;
+					}
+				}
+				.tr {
+					width: 100%;
+					display: flex;
+					flex-flow: row nowrap;
+					padding-bottom: 10px;
+					@media #{$mobile} {
+						padding-bottom: 5px;
+					}
+					&.headline {
+						opacity: 0.85;
+						margin-top: 15px;
+						margin-bottom: 15px;
+						border-bottom: 1px solid #8683ab;
 						@media #{$mobile} {
 							padding-bottom: 0px;
 						}
-					}
-					.title {
-						font-size: 32px;
-						font-weight: bold;
-						width: 50%;
-						@media #{$mobile} {
-							font-size: 28.5px !important;
-							width: 70% !important;;
-						}
-					}
-					.right {
-						position: relative;
-						top: 12px;
-						@media #{$mobile} {
-							width: 145px;
-						}
-					}
-					.regular {
-						@media #{$mobile} {
-							display: none;
-						}
-					}
-				}
-				.td {
-					width: 20%;
-					height: 40px;
-					@media #{$mobile} {
-						height: 50px;
-						font-size: 14px !important;
-					}
-				}
-				.td {
-					/*white-space: nowrap;*/
-					text-overflow: ellipsis;
-					/*overflow: hidden;*/
-					font-size: 18px;
-					vertical-align: middle;
-					padding: 8px 6px;
-					&.name {
-						font-weight: bold;
-						width: 30%;
-						@media #{$mobile} {
-							width: 55%;
-						}
-					}
-					&.right {
-						text-align: right;
-					}
-					&.center {
-						text-align: center;
-					}
-					.editLink {
-						margin-right: 10px;
-					}
-					.editLink, .deleteLink {
-						cursor: pointer;
-						font-weight: normal;
-						@media #{$mobile} {
-							position: relative;
-							top: 5px;
-						}
-						&:hover {
-							@media screen and (min-width: 489px) {
-								border-bottom: 4px solid #000;
-								padding-bottom: 5px;
+						.td {
+							padding-bottom: 0px;
+							@media #{$mobile} {
+								padding-bottom: 0px;
 							}
 						}
-					}
-					.toggleLink {
-						cursor: pointer;
-						&:hover {
-							border-bottom: 4px solid #000;
-							padding-bottom: 10px;
-						}
-					}
-					&.actions {
-						@media #{$mobile} {
-							display: none;
-						}
-					}
-					&.mobileActions {
-						position: relative;
-						bottom: 21px;
-						/*font-size: 20px !important;*/
-						padding-left: 0px;
-					    overflow: initial;
-					    z-index: 100000;
-						@media screen and (min-width: 489px) {
-							display: none !important;
-						}
-						&.edit {
+						.title {
+							font-size: 32px;
+							font-weight: bold;
 							width: 50%;
+							@media #{$mobile} {
+								font-size: 28.5px !important;
+								width: 70% !important;
+							}
 						}
-						/*@media screen and (max-width: 365px) {
-							padding-left: 15px;
-						}*/
-						a {
-							text-decoration: none;
+						.right {
+							width: 35%;
+							@media #{$mobile} {
+								width: 145px;
+							}
 						}
-						.popoverContent {
-							padding-top: 0px !important;
-							opacity: 0;
-							visibility: hidden;
-							position: absolute;
-							right: 31px;
-							top: 48px;
-							transform: translate(0, 10px);
-							background-color: #eee;
-							padding: 0.5rem;
-							box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.26);
-							box-shadow: 0 0.16rem 0.36rem 0 rgba(0, 0, 0, 0.13), 0 0.03rem 0.09rem 0 rgba(0, 0, 0, 0.11);
-							width: auto;
-							border-radius: 5px;
-							.popoverMessage {
-								margin: 0px;
-								text-align: center;
-								font-size: 18px;
-								a {
-									display: block;
-									text-align: left;
+						.regular {
+							@media screen and (max-width: 678px) {
+								display: none;
+							}
+						}
+						.name {
+							width: 63% !important;
+						}
+					}
+					.td {
+						padding-top: 0px !important;
+						/*white-space: nowrap;*/
+						text-overflow: ellipsis;
+						/*overflow: hidden;*/
+						font-size: 18px;
+						vertical-align: middle;
+						padding: 8px 6px;
+						width: 20%;
+						@media #{$mobile} {
+							height: 50px;
+							font-size: 14px !important;
+						}
+						&.name {
+							font-weight: bold;
+							width: 30%;
+							@media #{$mobile} {
+								width: 55%;
+							}
+							@media screen and (min-width: 500px) and (max-width: 700px) {
+								width: 50%;
+							}
+							input {
+								@media #{$mobile} {
+									width: 200px !important;
+								}
+								border-radius: 5px;
+							    border: 1px solid #000;
+							    height: 30px;
+							    color: #555;
+							    padding-left: 5px;
+							    box-shadow: 0 0.16rem 0.36rem 0 rgba(0, 0, 0, 0.13), 0 0.03rem 0.09rem 0 rgba(0, 0, 0, 0.11);
+							    margin-right: 10px;
+							}
+						}
+
+						.cell {
+							.artistLink {
+								img {
+									display: inline-block;
+									vertical-align: top;
+									width: 35px;
+									cursor: url('../client/images/icons/note.png'), pointer;
+									@media #{$mobile} {
+										width: 25px;
+									}
+									&:hover {
+										opacity: 0.6;          
+									}
+								}
+							}
+							&.soundcloud {
+								img {
+									width: 60px;
+								}
+								@media #{$mobile} {
+									img {
+										width: 45px;
+									}
+								}
+							}
+							.hidden {
+								@media #{$mobile} {
+									visibility: hidden;
 								}
 							}
 						}
-						.popoverContent:before {
-							position: absolute;
-							z-index: -1;
-							right: -15%;
-							top: 8px;
-							border-style: solid;
-							border-width: 0 10px 10px 10px;
-							border-color: transparent transparent #eee transparent;
-							transition-duration: 0.3s;
-							transition-property: transform;
+						&.right {
+							padding: 0px;
+							text-align: right;
 						}
-						&:hover .popoverContent {
-							z-index: 10;
-							opacity: 1;
-							visibility: visible;
-							transform: translate(0, -20px);
-							transition: all 0.5s cubic-bezier(0.75, -0.02, 0.2, 0.97);
+						svg {
+							opacity: 0.85;
+							width: 38px;
+						}
+						&.center {
+							text-align: center;
+						}
+						.editLink {
+							margin-right: 10px;
+						}
+						.editLink, .deleteLink {
+							font-weight: normal;
+							@media #{$mobile} {
+								position: relative;
+								top: 5px;
+							}
+							&:hover {
+								@media screen and (min-width: 489px) {
+									border-bottom: 3px solid #000;
+									padding-bottom: 5px;
+								}
+							}
+						}
+						.toggleLink {
+							margin-left: 5%;
+							@media screen and (min-width: 489px) {
+								&:hover {
+									border-bottom: 3px solid #000;
+									padding-bottom: 8px;
+								}
+							}
+						}
+						&.actions {
+							@media #{$mobile} {
+								display: none;
+							}
+						}
+						&.mobileActions {
+							position: relative;
+							bottom: 21px;
+							padding-left: 0px;
+						    overflow: initial;
+						    z-index: 100000;
+							@media screen and (min-width: 489px) {
+								display: none !important;
+							}
+							&.edit {
+								width: 50%;
+							}
+							a {
+								text-decoration: none;
+							}
+							.popoverContent {
+								padding-top: 0px !important;
+								opacity: 0;
+								visibility: hidden;
+								position: absolute;
+								right: 31px;
+								top: 48px;
+								transform: translate(0, 10px);
+								background-color: #eee;
+								padding: 0.5rem;
+								box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.26);
+								box-shadow: 0 0.16rem 0.36rem 0 rgba(0, 0, 0, 0.13), 0 0.03rem 0.09rem 0 rgba(0, 0, 0, 0.11);
+								width: auto;
+								border-radius: 5px;
+								.popoverMessage {
+									margin: 0px;
+									text-align: center;
+									font-size: 18px;
+									a {
+										display: block;
+										text-align: left;
+									}
+								}
+							}
+							.popoverContent:before {
+								position: absolute;
+								z-index: -1;
+								right: -15%;
+								top: 8px;
+								border-style: solid;
+								border-width: 0 10px 10px 10px;
+								border-color: transparent transparent #eee transparent;
+								transition-duration: 0.3s;
+								transition-property: transform;
+							}
+							&:hover .popoverContent {
+								z-index: 10;
+								opacity: 1;
+								visibility: visible;
+								transform: translate(0, -20px);
+								transition: all 0.5s cubic-bezier(0.75, -0.02, 0.2, 0.97);
+							}
+							.options {
+								font-size: 32px;
+							    color: black;
+							    opacity: 0.85;
+							}
+
 						}
 					}
 				}
-			}
-			.emptyText {
-				font-size: 18px;
-				opacity: 0.85;
-				@media #{$mobile} {
-					font-size: 17.5px;
+				.emptyText {
+					font-size: 18px;
+					opacity: 0.85;
+					@media #{$mobile} {
+						font-size: 17.5px;
+					}
 				}
 			}
 		}
-	}
-	.viewImage {
-		display: none;
-	   /* -webkit-animation: fadein 2s linear; 
-		-moz-animation: fadein 2s linear; 
-		-ms-animation: fadein 2s linear;
-		-o-animation: fadein 2s linear; 
-		animation: fadein 2s linear;*/
-		padding-bottom: 25px;
-		vertical-align: top;
-		position: fixed;
-		@media #{$mobile} {
-			position: relative;
-		}
-	    @media screen and (min-width: 1100px) {
-			width: 35%;
-		    margin-left: 5%;
-		    margin-top: 25px;
-	    }
-	    @media screen and (max-width: 1099px){
-	    	width: 90%;
-	    	margin: auto;
-	    	margin-top: 5px;
-	    }
-	    &.mobile {
-	    	display: none;
-	    	&.show {
-	    		@media #{$mobile} {
-	    			display: block;
-	    		}
-	    	}
-	    }
-	    &.regular {
-	    	&.show {
-	    		display: inline-block;
-	    		@media #{$mobile} {
-	    			display: none;
-	    		}
-	    	}
-	    }
-	}
-}
-
-
-.options {
-	font-size: 32px;
-    color: black;
-    opacity: 0.85;
-}
-
-
-
-/*.ourRow {
-	display: table-row;
-	@media #{$mobile} {
-		display: inherit;
-		marign-bottom: 5px;
-	}
-}
-*/
-
-/*.artistField, .artistName {
-	align-items: center;
-	@media #{$mobile} {
-		display: block;
-		padding-right: 15px;
-	}
-	input {
-		padding-right: 5px;
-		max-width: 105px;
-	}
-	a {
-		display: inline-block;
-		margin-left: 10px;
-	}
-}*/
-
-/*.artistField {
-	&.edit {
-		@media #{$mobile} {
-			display: flex;
-		}
-	}
-}
-*/
-
-input {
-	@media #{$mobile} {
-		width: 200px !important;
-	}
-	border-radius: 5px;
-    border: 1px solid #000;
-    height: 30px;
-    color: #555;
-    padding-left: 5px;
-    box-shadow: 0 0.16rem 0.36rem 0 rgba(0, 0, 0, 0.13), 0 0.03rem 0.09rem 0 rgba(0, 0, 0, 0.11);
-    margin-right: 10px;
-}
-
-.hide {
-	@media #{$mobile} {
-		display: none;
-	}
-}
-
-.cell {
-	.artistLink {
-		img {
-			display: inline-block;
-			vertical-align: top;
-			width: 35px;
+		.viewImage {
+			display: none;
+		   /* -webkit-animation: fadein 2s linear; 
+			-moz-animation: fadein 2s linear; 
+			-ms-animation: fadein 2s linear;
+			-o-animation: fadein 2s linear; 
+			animation: fadein 2s linear;*/
+			padding-bottom: 25px;
 			@media #{$mobile} {
-				width: 25px;
+				position: relative;
 			}
-			&:hover {
-				opacity: 0.7;          
-			}
+		    @media screen and (min-width: 1100px) {
+				width: 35%;
+			    margin-left: 5%;
+			    margin-top: 25px;
+			    vertical-align: top;
+				position: fixed;
+		    }
+		    @media screen and (max-width: 1099px){
+		    	width: 90%;
+		    	margin: auto;
+		    }
+		    &.mobile {
+		    	display: none;
+		    	&.show {
+		    		@media screen and (max-width: 1099px) {
+		    			display: block;
+		    		}
+		    	}
+		    }
+		    &.regular {
+		    	&.show {
+		    		display: inline-block;
+		    		@media screen and (max-width: 1099px) {
+		    			display: none;
+		    		}
+		    	}
+		    }
 		}
 	}
 
-	/*&.artistName {
-		text-overflow: ellipsis;
-	    overflow: hidden;
-	    white-space: nowrap;
-	    width: 300px;
-	    font-weight: bold;
-	    font-weight: 18px;
-	    @media screen and (max-width: 550px) {
-	    	width: 125px;
-	    }
-	    @media screen and (min-width: 489px) {
-	    	text-transform: uppercase;
-	    	max-width: 125px;
-	    	padding-right: 16%;
-	    }
-	    a {
-	    	margin-left: 10px;
-	    }
-	}*/
-	/*&.editContainer {
-		opacity: 0.85;
-		text-align: right;
-		a {
-			margin-right: 10px;
-			position: relative;
-			font-weight: normal;
-			cursor: pointer;
-			border-bottom: solid 2.5px transparent;
-			&:hover {
-				border-bottom: 2px solid #000;
-			}
-		}
-		&.hideOnMobile {
-			display: none !important;
-			@media screen and (min-width: 489px) {
-				display: table-cell !important;
-			}
-		}
-	}*/
-	&.soundcloud {
-		img {
-			width: 60px;
-		}
-		@media #{$mobile} {
-			img {
-				width: 45px;
-			}
-		}
-	}
-	.hidden {
-		@media #{$mobile} {
-			visibility: hidden;
-		}
-	}
-}
-.smallTable {
-    @media screen and (min-width: 489px) {
-		width: 57%;
-	    display: inline-table;
-	    vertical-align: top;
-	    vertical-align: top;
-	  	padding-left: 50px;
-    }
-}
-@keyframes fadein {
-    from { bottom: 0px; }
-    to { bottom: 35px; }
-    0% { opacity: 0; }
-    50% { opacity: 1; }
-}
-
-@keyframes fadeinMobile {
-    from { bottom: 200px; }
-    to { bottom: 225px; }
-    0% { opacity: 0; }
-    50% { opacity: 1; }
-}
-
-.resultsBackground {
 	.notificationContainer {
 		z-index: 1000000;
 		position: fixed;
@@ -466,4 +376,22 @@ input {
 	    	position: relative;
 	    }
 	}
+}
+.hide {
+	@media #{$mobile} {
+		display: none;
+	}
+}
+@keyframes fadein {
+    from { bottom: 0px; }
+    to { bottom: 35px; }
+    0% { opacity: 0; }
+    50% { opacity: 1; }
+}
+
+@keyframes fadeinMobile {
+    from { bottom: 200px; }
+    to { bottom: 225px; }
+    0% { opacity: 0; }
+    50% { opacity: 1; }
 }

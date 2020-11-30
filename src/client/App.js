@@ -103,6 +103,10 @@ export default class App extends Component {
         this.setState({ showImage: false })
     }
 
+    goBack = () => {
+        this.setState({ artists: "" })
+    }
+
     renderLeftContent = () => {
         var header = <h1 className="header">Discover new artists by uploading an image!</h1>
         var text =  <p className="tagline">Turn an event or festival lineup into new music by uploading the lineup image.</p>
@@ -224,12 +228,29 @@ export default class App extends Component {
     renderLineup = () => {
         var artists = this.state.artists;
         if (this.state.showImage) {
-            var link = <a className="toggleLink" onClick={ this.hideImage }>HIDE IMAGE</a>
+            var imageToggleLink = (
+                <a className="toggleLink" onClick={ this.hideImage }>
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-square-x" width="44" height="44" viewBox="0 0 24 24" stroke-width="1.5" stroke="#000000" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                        <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+                        <rect x="4" y="4" width="16" height="16" rx="2" />
+                        <path d="M10 10l4 4m0 -4l-4 4" />
+                    </svg>
+                </a>
+            )
             var visible = "show";
             var inlineClass = "inline";
         } else {
             if (artists && artists.length > 0) {
-                var link = <a className="toggleLink" onClick={ this.viewImage }>VIEW IMAGE</a>
+                var imageToggleLink = (<a className="toggleLink" onClick={ this.viewImage }>
+                        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-photo" width="44" height="44" viewBox="0 0 24 24" stroke-width="1.5" stroke="#000000" fill="none" stroke-linecap="round" stroke-linejoin="round"> 
+                            <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+                            <line x1="15" y1="8" x2="15.01" y2="8" />   
+                            <rect x="4" y="4" width="16" height="16" rx="3" />
+                            <path d="M4 15l4 -4a3 5 0 0 1 3 0l5 5" />
+                            <path d="M14 14l1 -1a3 5 0 0 1 3 0l2 2" /> 
+                        </svg>
+                    </a>
+                )
             }
         }
         if (this.state.lineup == "one") {
@@ -245,31 +266,21 @@ export default class App extends Component {
             var lineupImage = <img className={ "viewImage regular " + visible } src={ this.state.image } ref={ this.myRef } />
         }
         var notification = this.renderNotification();
-        // var results = (
-        //     <div>
-        //          <table className="artistsTable topLine">
-        //              <thead>
-        //                  <tr className="controls">
-        //                      <th className="title">YOUR LINEUP</th>
-        //                      <th></th>
-        //                      <th className="viewImageLink">{ link }</th>
-        //                  </tr>
-        //              </thead>
-        //          </table>
-        //         <table className="artistsTable ">
-        //             <tbody>
-        //                 { this.renderArtists() }
-        //             </tbody>
-        //         </table>
-        //         { notification }
-        //     </div>
-        // )
-
         if (artists && artists.length > 0) {
             var artists =  this.renderArtists();
         } else {
            var emptyState = <p className="emptyText">Oh, where have all the artists gone 😱?</p>
         }
+
+        var goBackLink = (
+            <a className="toggleLink" onClick={ this.goBack }>
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-chevrons-left" width="44" height="44" viewBox="0 0 24 24" stroke-width="1.5" stroke="#000000" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                  <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+                  <polyline points="11 7 6 12 11 17" />
+                  <polyline points="17 7 12 12 17 17" />
+                </svg>
+            </a>
+        )
 
         var results = (
             <div className="tableContainer">
@@ -280,7 +291,10 @@ export default class App extends Component {
                             <div class="td regular"></div>
                             <div class="td regular"></div>
                             <div class="td regular"></div>
-                            <div class="td right">{ link }</div>
+                            <div class="td right">
+                                { goBackLink }
+                                { imageToggleLink }
+                            </div>
                         </div>
                        { artists }
                        { emptyState }
@@ -312,20 +326,22 @@ export default class App extends Component {
     //     return results;
     // }
     render() {
+        var className = "loadingBackground";
         if (!this.state.artists && !this.state.loading) {
             var content = this.renderContent();
         }
         if (this.state.loading) {
-            var className = "loadingBackground";
+            document.body.classList.add(className);
             var loadingText = <p className="loadingText">LOADING YOUR LINEUP...</p>
         } else {
+            document.body.classList.remove(className);
             var artists = this.state.artists;
             if (artists && artists.length > 0) {
                 var results = this.renderLineup()
             }
         }
         return (
-            <div className={ "locateArtistsContainer  resultsBackground " + className }>
+            <div className="locateArtistsContainer  resultsBackground" >
                 { loadingText }
                 { content }
                 { results }
