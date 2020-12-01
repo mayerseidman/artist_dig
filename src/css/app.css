@@ -17,9 +17,11 @@ html, body {
 	font-family: 'poppins';
 	margin: 0;
 	background: url("../client/images/cassete-purple.png") no-repeat center center fixed;
-	background-attachment: scroll;
 	background-size: cover;
-    height: 100vh;
+    @media #{$mobile} {
+    	background-attachment: scroll;
+    	height: 100vh;
+    }
 	&.loadingBackground {
 		height: 100vh !important;
 		animation-name: color;
