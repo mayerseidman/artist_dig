@@ -2,10 +2,10 @@
 
 @font-face {
     font-family: 'poppins';
-    src: url('../fonts/poppins/Poppins-Regular.ttf') format('ttf') format("woff") format("opentype") format("svg"),
-        url('../fonts/poppins/Poppins-Bold.ttf') format('ttf') format("woff") format("opentype") format("svg"),
-        url('../fonts/poppins/Poppins-ExtraBold.ttf') format('ttf') format("woff") format("opentype") format("svg"),
-        url('../fonts/poppins/Poppins-Italic.ttf') format('ttf') format("woff") format("opentype") format("svg");
+    src: url('../fonts/poppins/Poppins-Regular.ttf') format('truetype'),
+        url('../fonts/poppins/Poppins-Bold.ttf') format('truetype'),
+        url('../fonts/poppins/Poppins-ExtraBold.ttf') format('truetype'),
+        url('../fonts/poppins/Poppins-Italic.ttf') format('truetype');
 }
 
 button, a:hover {
