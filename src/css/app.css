@@ -23,7 +23,6 @@ html, body {
   	top: 0;
   	left: 0;
   	width: 100vw;
-  	height: 120vh;
 	&.loadingBackground {
 		height: 100vh !important;
 		animation-name: color;
