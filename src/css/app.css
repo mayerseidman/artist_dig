@@ -10,7 +10,7 @@
 
 button, a:hover {
 	cursor: url('../client/images/icons/note.png'), pointer !important;
-}
+} 
 
 html, body {
 	cursor: url('../client/images/icons/note.png'), pointer;
@@ -94,11 +94,11 @@ html, body {
 	            h1 {
 	            	color: #252424;
             	    font-weight: bold;
-            	  	font-size: 33px;
+            	  	font-size: 34.5px;
             	    line-height: 36px;
             	    margin: 0;
             	    @media #{$mobile} {
-            	    	font-size: 28px;
+            	    	font-size: 29px;
             	    	line-height: 34px;
             	    }
 	            }
