@@ -21,6 +21,8 @@ html, body {
     @media #{$mobile} {
     	background-attachment: scroll;
     	height: 100vh;
+    	background: url("../client/images/cassete-purple.png") no-repeat center center fixed;
+    	background-size: cover;
     }
 	&.loadingBackground {
 		height: 100vh !important;
