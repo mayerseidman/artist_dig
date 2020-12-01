@@ -4,6 +4,7 @@
     font-family: 'poppins';
     src: url('../fonts/poppins/Poppins-Regular.ttf') format('ttf'),
         url('../fonts/poppins/Poppins-Bold.ttf') format('ttf'),
+        url('../fonts/poppins/Poppins-ExtraBold.ttf') format('ttf'),
         url('../fonts/poppins/Poppins-Italic.ttf') format('ttf');
 }
 
@@ -97,7 +98,7 @@ html, body {
 				}
 	            h1 {
 	            	color: #252424;
-            	    font-weight: bold;
+            	    font-weight: 550;
             	  	font-size: 33px;
             	    line-height: 36px;
             	    margin: 0;
@@ -232,7 +233,6 @@ html, body {
             	    font-weight: bold;
             	    @media #{$mobile} {
             	    	margin-top: 0px;
-            	    	text-align: center;
             	    	margin-bottom: 10px;
             	    }
 	            }
