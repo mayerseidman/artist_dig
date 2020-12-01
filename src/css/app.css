@@ -19,6 +19,11 @@ html, body {
 	background: url("../client/images/cassete-purple.png") no-repeat center center fixed;
 	background-size: cover;
     height: 100vh;
+    position: fixed;
+  	top: 0;
+  	left: 0;
+  	width: 100vw;
+  	height: 120vh;
 	&.loadingBackground {
 		height: 100vh !important;
 		animation-name: color;
