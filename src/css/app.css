@@ -229,7 +229,7 @@ html, body {
 	            .guideText {
 	            	text-align: left;
             	    font-size: 16px;
-            	    opacity: 0.85;
+            	    opacity: 0.85em;
             	    font-weight: bold;
             	    @media #{$mobile} {
             	    	margin-top: 0px;
