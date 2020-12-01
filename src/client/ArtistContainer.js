@@ -27,17 +27,6 @@ export default class App extends Component {
     deleteArtist = (artist) => {
         this.props.deleteArtist(artist);
     }
-    // renderEditField = () => {
-    //     var artist = this.state.artistName;
-    //     var editField = (
-    //         <td>
-    //             <input type="text" className="form-control" ref="artistName" onChange={ this.handleChange.bind(this) } 
-    //                 value={ this.state.artistName } />
-    //             <a onClick={ this.saveArtist.bind(this) }>Save</a>
-    //         </td>
-    //     )
-    //     return editField;
-    // }
     renderArtistField = () => {
         var artist = this.props.artistName;
         if (this.state.editArtist) {
@@ -118,8 +107,8 @@ export default class App extends Component {
         var mobileActionsField = (
             <div>
                 <a className="options">...</a>
-                <div class="popoverContent">
-                    <p class="popoverMessage">
+                <div className="popoverContent">
+                    <p className="popoverMessage">
                         { editLink }
                         { deleteLink }
                     </p>
@@ -144,16 +133,6 @@ export default class App extends Component {
                 <div className={ "td right mobileActions "  + editClass }>{ this.renderMobileActions() }</div>
             </div>
         )
-        // return (
-        //     <tr>
-        //         { this.renderArtistField() }
-        //         { this.renderSoundcloudField() }
-        //         { this.renderSpotifyField() }
-        //         { this.renderYouTubeField() }
-        //         { this.renderActions() }
-        //         { this.renderMobileActions() }
-        //     </tr>
-        // )
     }
     componentDidMount() {
         this.setState({ originalName: this.props.artistName, artistName: this.props.artistName })

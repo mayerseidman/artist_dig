@@ -10,6 +10,7 @@ import checkImage from './images/icons/check.png';
 import lineupOne from './LineupOne.json';
 import lineupTwo from './LineupTwo.json';
 import lineupThree from './LineupThree.json';
+import profileImage from './images/icons/profile.png';
 
 const lineups = { "one": lineupOne, "two": lineupTwo, "three": lineupThree };
 
@@ -230,7 +231,7 @@ export default class App extends Component {
         if (this.state.showImage) {
             var imageToggleLink = (
                 <a className="toggleLink" onClick={ this.hideImage }>
-                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-square-x" width="44" height="44" viewBox="0 0 24 24" stroke-width="1.5" stroke="#000000" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="44" height="44" viewBox="0 0 24 24" strokeWidth="1.5" stroke="#000000" fill="none" strokeLinecap="round" strokeLinejoin="round">
                         <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
                         <rect x="4" y="4" width="16" height="16" rx="2" />
                         <path d="M10 10l4 4m0 -4l-4 4" />
@@ -242,7 +243,7 @@ export default class App extends Component {
         } else {
             if (artists && artists.length > 0) {
                 var imageToggleLink = (<a className="toggleLink" onClick={ this.viewImage }>
-                        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-photo" width="44" height="44" viewBox="0 0 24 24" stroke-width="1.5" stroke="#000000" fill="none" stroke-linecap="round" stroke-linejoin="round"> 
+                        <svg xmlns="http://www.w3.org/2000/svg" width="44" height="44" viewBox="0 0 24 24" strokeWidth="1.5" stroke="#000000" fill="none" strokeLinecap="round" strokeLinejoin="round"> 
                             <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
                             <line x1="15" y1="8" x2="15.01" y2="8" />   
                             <rect x="4" y="4" width="16" height="16" rx="3" />
@@ -266,15 +267,18 @@ export default class App extends Component {
             var lineupImage = <img className={ "viewImage regular " + visible } src={ this.state.image } ref={ this.myRef } />
         }
         var notification = this.renderNotification();
-        if (artists && artists.length > 0) {
-            var artists =  this.renderArtists();
-        } else {
-           var emptyState = <p className="emptyText">Oh, where have all the artists gone 😱?</p>
-        }
+        if (artists) {
+            if (artists.length > 0) {
+                console.log("nOt empty", artists.length)
+                var artists =  this.renderArtists();
+            } else {
+                var emptyState = <p className="emptyText">Oh, where have all the artists gone 😱?</p>
+            }
+        }  
 
         var goBackLink = (
             <a className="toggleLink" onClick={ this.goBack }>
-                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-chevrons-left" width="44" height="44" viewBox="0 0 24 24" stroke-width="1.5" stroke="#000000" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                <svg xmlns="http://www.w3.org/2000/svg" width="44" height="44" viewBox="0 0 24 24" strokeWidth="1.5" stroke="#000000" fill="none" strokeLinecap="round" strokeLinejoin="round">
                   <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
                   <polyline points="11 7 6 12 11 17" />
                   <polyline points="17 7 12 12 17 17" />
@@ -286,12 +290,12 @@ export default class App extends Component {
             <div className="tableContainer">
                 <div className={ "table " + inlineClass }>
                     <div className={ "tbody "  + inlineClass }>
-                        <div class="tr headline">
-                            <div class="td name title">YOUR LINEUP</div>
-                            <div class="td regular"></div>
-                            <div class="td regular"></div>
-                            <div class="td regular"></div>
-                            <div class="td right">
+                        <div className="tr headline">
+                            <div className="td name title">YOUR LINEUP</div>
+                            <div className="td regular"></div>
+                            <div className="td regular"></div>
+                            <div className="td regular"></div>
+                            <div className="td right">
                                 { goBackLink }
                                 { imageToggleLink }
                             </div>
@@ -307,24 +311,6 @@ export default class App extends Component {
         )
         return results;
     }
-    // renderEmptyState = () => {
-    //     var header = (
-    //         <p className="header">YOUR LINEUP</p>
-    //     )
-        
-    //     var content = (
-    //         <div className="ourTable ">
-    //             { emptyState }
-    //         </div>
-    //     )
-    //     var results = (
-    //         <div className="resultsContainer">
-    //             { header }
-    //             { content }
-    //         </div>
-    //     )
-    //     return results;
-    // }
     render() {
         var className = "loadingBackground";
         if (!this.state.artists && !this.state.loading) {
@@ -336,8 +322,15 @@ export default class App extends Component {
         } else {
             document.body.classList.remove(className);
             var artists = this.state.artists;
-            if (artists && artists.length > 0) {
+            if (artists) {
                 var results = this.renderLineup()
+            } else {
+                var madeBY = (
+                    <a className="madeBY" target="_blank" href="https://www.mayerseidman.com">
+                        <span className="text">MADE BY</span>
+                        <img className="profile" src={ profileImage } />
+                    </a>
+                )
             }
         }
         return (
@@ -345,6 +338,7 @@ export default class App extends Component {
                 { loadingText }
                 { content }
                 { results }
+                { madeBY }
             </div>
         );
     }

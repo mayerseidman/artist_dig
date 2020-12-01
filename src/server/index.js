@@ -120,7 +120,7 @@ function uploadImage(req, file) {
 		})
 		.field('language', 'eng')
 		// DEVELOPMENT .field('url', 'https://1dbfb987fa12.ngrok.io/' + file.path) 
-		.field('url', process.env.NODE_ENV === "production" ? (req.protocol + "://" + req.hostname + "/" + file.path) : ('https://adb1da268553.ngrok.io/' + file.path)) 
+		.field('url', process.env.NODE_ENV === "production" ? (req.protocol + "://" + req.hostname + "/" + file.path) : ('https://343658cfd234.ngrok.io/' + file.path)) 
 		.end(function (res) {
 			var rawBody = JSON.parse(res.raw_body);
 			if (rawBody.IsErroredOnProcessing) return reject(rawBody);
