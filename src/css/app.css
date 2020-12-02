@@ -267,6 +267,7 @@ html, body {
     	}
 	    @media #{$mobile} {
 	    	bottom: 12%;
+	    	text-align: center;
 	    }
 	    .profile {
 	    	width: 45px;
