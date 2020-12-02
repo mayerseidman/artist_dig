@@ -1,12 +1,12 @@
 @import "../scss/variables";
+@import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
 
-@font-face {
+/*@font-face {
     font-family: 'poppins';
     src: url('../fonts/poppins/Poppins-Regular.ttf') format('truetype'),
-        url('../fonts/poppins/Poppins-Bold.ttf') format('truetype'),
-        url('../fonts/poppins/Poppins-ExtraBold.ttf') format('truetype'),
+        url('../fonts/poppins/Poppins-Bold.ttf'),
         url('../fonts/poppins/Poppins-Italic.ttf') format('truetype');
-}
+}*/
 
 button, a:hover {
 	cursor: url('../client/images/icons/note.png'), pointer !important;
@@ -14,7 +14,7 @@ button, a:hover {
 
 html, body {
 	cursor: url('../client/images/icons/note.png'), pointer;
-	font-family: 'poppins';
+	font-family: 'Poppins', sans-serif;
 	margin: 0;
 	background: url("../client/images/cassete-purple.png") no-repeat center center fixed;
 	background-size: cover;
@@ -99,7 +99,7 @@ html, body {
 	            h1 {
 	            	color: #252424;
             	    font-weight: bold;
-            	  	font-size: 34.5px;
+            	  	font-size: 33.5px;
             	    line-height: 36px;
             	    margin: 0;
             	    @media #{$mobile} {
