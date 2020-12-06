@@ -320,7 +320,7 @@ export default class App extends Component {
             document.body.classList.add(className);
             var loadingText = <p className="loadingText">LOADING YOUR LINEUP...</p>
             var madeBY = (
-                <a className="madeBY" target="_blank" href="https://www.mayerseidman.com">
+                <a className="madeBY loading" target="_blank" href="https://www.mayerseidman.com">
                     <span className="text">MADE BY</span>
                     <img className="profile" src={ profileImage } />
                 </a>

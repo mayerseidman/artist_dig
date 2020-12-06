@@ -257,14 +257,23 @@ html, body {
 	    left: 50%;
 	    transform: translate(-50%, -50%);
 	    text-decoration: none;
-        /*@media screen and (max-width: 1000px) {
+        @media screen and (max-width: 1000px) {
         	position: relative;
         	display: block;
 			margin: auto;
 			left: 0;
 		    bottom: 0;
 		    transform: none;
-    	}*/
+    	}
+    	&.loading {
+    		@media #{$mobile} {
+		    	bottom: 5px;
+			    position: absolute;
+			    left: 50%;
+			    transform: translate(-50%, -50%);
+			    text-decoration: none;
+    		}
+    	}
 	    @media #{$mobile} {
 	    	text-align: center;
 	    }
