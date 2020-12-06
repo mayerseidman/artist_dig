@@ -105,7 +105,7 @@ export default class App extends Component {
     }
 
     goBack = () => {
-        this.setState({ artists: "" })
+        this.setState({ artists: "", lineup: "" })
     }
 
     renderLeftContent = () => {
@@ -319,6 +319,12 @@ export default class App extends Component {
         if (this.state.loading) {
             document.body.classList.add(className);
             var loadingText = <p className="loadingText">LOADING YOUR LINEUP...</p>
+            var madeBY = (
+                <a className="madeBY" target="_blank" href="https://www.mayerseidman.com">
+                    <span className="text">MADE BY</span>
+                    <img className="profile" src={ profileImage } />
+                </a>
+            )
         } else {
             document.body.classList.remove(className);
             var artists = this.state.artists;
